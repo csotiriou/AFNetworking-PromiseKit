@@ -25,15 +25,19 @@
 #import "AFNetworking+Promises.h"
 
 
+
 @implementation AFHTTPRequestOperation (Promises)
 - (Promise *)promise
 {
     return [Promise new:^(PromiseResolver fulfiller, PromiseResolver rejecter){
-		[self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-			fulfiller(PMKManifold(responseObject, operation));
-		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			rejecter(PMKManifold(error, operation));
-		}];
+        [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            fulfiller(PMKManifold(responseObject, operation));
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            id info = error.userInfo.mutableCopy;
+            info[AFHTTPRequestOperationErrorKey] = operation;
+            id newerror = [NSError errorWithDomain:error.domain code:error.code userInfo:info];
+            rejecter(newerror);
+        }];
     }];
 }
 
@@ -57,7 +61,7 @@
 
 
 
-@implementation AFHTTPRequestOperationManager (PromisesP)
+@implementation AFHTTPRequestOperationManager (Promises)
 
 - (Promise *)POST:(NSString *)URLString parameters:(id)parameters
 {

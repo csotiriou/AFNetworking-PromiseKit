@@ -25,6 +25,7 @@
 #import <PromiseKit/PromiseKit.h>
 #import <Promise.h>
 
+static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError";
 
 @interface AFHTTPRequestOperation (Promises)
 /**
@@ -49,7 +50,7 @@
 @end
 
 
-@interface AFHTTPRequestOperationManager (PromisesP)
+@interface AFHTTPRequestOperationManager (Promises)
 
 - (Promise *)GET:(NSString *)URLString parameters:(id)parameters;
 - (Promise *)POST:(NSString *)URLString parameters:(id)parameters;

@@ -13,9 +13,11 @@ Just copy AFNetworking+Promises.h and AFNetworking+Promises.m in your project an
 ### Plain HTTP Request
 ```
 [AFHTTPRequestOperation request:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://oramind.com/"]]].then(^(id responseObject){
-    NSLog(@"operation completed! %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);}).catch(^(NSError *error){
-		NSLog(@"error: %@", error.userInfo[PMKThrown][0]); //this will report errors thrown by AFNetworking
-	});
+	NSLog(@"operation completed! %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+}).catch(^(NSError *error){
+	NSLog(@"error: %@", error.localizedDescription);
+	NSLog(@"original operation: %@", error.userInfo[AFHTTPRequestOperationErrorKey]);
+});
 ```
 
 The above code will immediately execute the HTTP Request by adding it to the current queue, or the main queue if the current queue does not exist. You can also add it to a different queue (see the header file)
@@ -24,19 +26,21 @@ The above code will immediately execute the HTTP Request by adding it to the cur
 ```
 self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
 self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-	
-	
-[self.manager GET:@"http://www.oramind.com/" parameters:nil].then(^(id responseObject, AFHTTPRequestOperation *operation){
+
+
+[self.manager GET:@"http://www.error-url.ss/" parameters:nil].then(^(id responseObject, AFHTTPRequestOperation *operation){
 	NSLog(@"first request completed for operation: %@", operation.request.description);
 	return [self.manager GET:@"http://www.apple.com" parameters:nil];
 }).then(^{
 	NSLog(@"second request completed");
 }).catch(^(NSError *error){
-	NSLog(@"error happened: %@", error.userInfo[PMKThrown][0]); //this will hold the actual error reported by the HTTP Client
+	NSLog(@"error happened: %@", error.localizedDescription);
+	NSLog(@"original operation: %@", error.userInfo[AFHTTPRequestOperationErrorKey]);
 });
+	
 ```
 
-Objects returned by the plain AFHTTPRequestOperationManager are also returned here, as optional arguments (a response object of type 'id' and the AFHTTPRequestOperation). In case of errors, you can use the "catch" command of PromiseKit, and get the error thrown by AFNetworking
+Objects returned by the plain AFHTTPRequestOperationManager are also returned here, as optional arguments (a response object of type 'id' and the AFHTTPRequestOperation). In case of errors, you can use the "catch" command of PromiseKit, and get the error thrown by AFNetworking and the original operation that spawned the error with 'error.userInfo[AFHTTPRequestOperationErrorKey]'
 
 
 #To Do
