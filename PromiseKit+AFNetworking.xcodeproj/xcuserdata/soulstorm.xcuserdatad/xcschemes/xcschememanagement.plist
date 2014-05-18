@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PromiseTests.xcscheme</key>
+		<key>PromiseKit+AFNetworking.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>064895E11926B8BF009C0CFB</key>
+		<key>0666CC69192961BC00110C1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>064896021926B8BF009C0CFB</key>
+		<key>0666CC8A192961BC00110C1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

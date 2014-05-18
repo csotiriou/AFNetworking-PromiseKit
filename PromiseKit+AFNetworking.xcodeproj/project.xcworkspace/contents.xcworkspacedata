@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:PromiseTests.xcodeproj">
+      location = "self:PromiseKit+AFNetworking.xcodeproj">
    </FileRef>
 </Workspace>

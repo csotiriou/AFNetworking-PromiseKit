@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-               BuildableName = "PromiseKitPlusAF.app"
-               BlueprintName = "PromiseKitPlusAF"
-               ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
+               BlueprintIdentifier = "0666CC69192961BC00110C1B"
+               BuildableName = "PromiseKit+AFNetworking.app"
+               BlueprintName = "PromiseKit+AFNetworking"
+               ReferencedContainer = "container:PromiseKit+AFNetworking.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "064896021926B8BF009C0CFB"
-               BuildableName = "PromiseKitPlusAFTests.xctest"
-               BlueprintName = "PromiseKitPlusAFTests"
-               ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
+               BlueprintIdentifier = "0666CC8A192961BC00110C1B"
+               BuildableName = "PromiseKit+AFNetworkingTests.xctest"
+               BlueprintName = "PromiseKit+AFNetworkingTests"
+               ReferencedContainer = "container:PromiseKit+AFNetworking.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-            BuildableName = "PromiseKitPlusAF.app"
-            BlueprintName = "PromiseKitPlusAF"
-            ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
+            BlueprintIdentifier = "0666CC69192961BC00110C1B"
+            BuildableName = "PromiseKit+AFNetworking.app"
+            BlueprintName = "PromiseKit+AFNetworking"
+            ReferencedContainer = "container:PromiseKit+AFNetworking.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -61,10 +61,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-            BuildableName = "PromiseKitPlusAF.app"
-            BlueprintName = "PromiseKitPlusAF"
-            ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
+            BlueprintIdentifier = "0666CC69192961BC00110C1B"
+            BuildableName = "PromiseKit+AFNetworking.app"
+            BlueprintName = "PromiseKit+AFNetworking"
+            ReferencedContainer = "container:PromiseKit+AFNetworking.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -79,10 +79,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-            BuildableName = "PromiseKitPlusAF.app"
-            BlueprintName = "PromiseKitPlusAF"
-            ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
+            BlueprintIdentifier = "0666CC69192961BC00110C1B"
+            BuildableName = "PromiseKit+AFNetworking.app"
+            BlueprintName = "PromiseKit+AFNetworking"
+            ReferencedContainer = "container:PromiseKit+AFNetworking.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

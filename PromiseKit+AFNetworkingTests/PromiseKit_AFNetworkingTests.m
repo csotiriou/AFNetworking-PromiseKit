@@ -1,18 +1,18 @@
 //
-//  PromiseTestsTests.m
-//  PromiseTestsTests
+//  PromiseKit_AFNetworkingTests.m
+//  PromiseKit+AFNetworkingTests
 //
-//  Created by Christos Sotiriou on 17/5/14.
+//  Created by Christos Sotiriou on 19/5/14.
 //  Copyright (c) 2014 Oramind. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface PromiseTestsTests : XCTestCase
+@interface PromiseKit_AFNetworkingTests : XCTestCase
 
 @end
 
-@implementation PromiseTestsTests
+@implementation PromiseKit_AFNetworkingTests
 
 - (void)setUp
 {
