@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-               BuildableName = "PromiseTests.app"
+               BuildableName = "PromiseKitPlusAF.app"
                BlueprintName = "PromiseKitPlusAF"
                ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "064896021926B8BF009C0CFB"
-               BuildableName = "PromiseTestsTests.xctest"
+               BuildableName = "PromiseKitPlusAFTests.xctest"
                BlueprintName = "PromiseKitPlusAFTests"
                ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-            BuildableName = "PromiseTests.app"
+            BuildableName = "PromiseKitPlusAF.app"
             BlueprintName = "PromiseKitPlusAF"
             ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-            BuildableName = "PromiseTests.app"
+            BuildableName = "PromiseKitPlusAF.app"
             BlueprintName = "PromiseKitPlusAF"
             ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "064895E11926B8BF009C0CFB"
-            BuildableName = "PromiseTests.app"
+            BuildableName = "PromiseKitPlusAF.app"
             BlueprintName = "PromiseKitPlusAF"
             ReferencedContainer = "container:PromiseKitPlusAF.xcodeproj">
          </BuildableReference>
