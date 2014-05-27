@@ -29,7 +29,7 @@
 @implementation AFHTTPRequestOperation (Promises)
 - (Promise *)promise
 {
-    return [Promise new:^(PromiseResolver fulfiller, PromiseResolver rejecter){
+    return [Promise new:^(PromiseFulfiller fulfiller, PromiseRejecter rejecter){
         [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             fulfiller(PMKManifold(responseObject, operation));
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
