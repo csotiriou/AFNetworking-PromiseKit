@@ -34,29 +34,29 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
  Returned objects in the Promise Completion:
  AFHTTPRequestOperation *operation, id responseObject
  */
-- (Promise *)promise;
+- (PMKPromise *)promise;
 
 /**
  @brief Executes immediately an AFHTTPRequestOperation by adding an operation set up with a NSURLRequest
  to the current queue (or to the main queue if there is no current queue
  */
-+ (Promise *)request:(NSURLRequest *)request;
++ (PMKPromise *)request:(NSURLRequest *)request;
 
 /**
  @brief Executes immediately an AFHTTPRequestOperation by adding an operation set up with a NSURLRequest
  to the queue passed as the argument
  */
-+ (Promise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue;
++ (PMKPromise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue;
 @end
 
 
 @interface AFHTTPRequestOperationManager (Promises)
 
-- (Promise *)GET:(NSString *)URLString parameters:(id)parameters;
-- (Promise *)POST:(NSString *)URLString parameters:(id)parameters;
-- (Promise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
-- (Promise *)PUT:(NSString *)URLString parameters:(id)parameters;
-- (Promise *)DELETE:(NSString *)URLString parameters:(id)parameters;
+- (PMKPromise *)GET:(NSString *)URLString parameters:(id)parameters;
+- (PMKPromise *)POST:(NSString *)URLString parameters:(id)parameters;
+- (PMKPromise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
+- (PMKPromise *)PUT:(NSString *)URLString parameters:(id)parameters;
+- (PMKPromise *)DELETE:(NSString *)URLString parameters:(id)parameters;
 @end
 
 

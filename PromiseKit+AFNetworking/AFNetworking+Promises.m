@@ -27,9 +27,9 @@
 
 
 @implementation AFHTTPRequestOperation (Promises)
-- (Promise *)promise
+- (PMKPromise *)promise
 {
-    return [Promise new:^(PromiseFulfiller fulfiller, PromiseRejecter rejecter){
+    return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter){
         [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             fulfiller(PMKManifold(responseObject, operation));
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -43,13 +43,13 @@
 
 
 
-+ (Promise *)request:(NSURLRequest *)request
++ (PMKPromise *)request:(NSURLRequest *)request
 {
 	NSOperationQueue *q = [NSOperationQueue currentQueue] ? : [NSOperationQueue mainQueue];
 	return [self request:request queue:q];
 }
 
-+ (Promise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue
++ (PMKPromise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue
 {
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 	[queue addOperation:operation];
@@ -63,27 +63,27 @@
 
 @implementation AFHTTPRequestOperationManager (Promises)
 
-- (Promise *)POST:(NSString *)URLString parameters:(id)parameters
+- (PMKPromise *)POST:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {} failure:^(AFHTTPRequestOperation *operation, NSError *error) {}] promise];
 }
 
-- (Promise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
+- (PMKPromise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 {
 	return [[self POST:URLString parameters:parameters constructingBodyWithBlock:block success:nil failure:nil] promise];
 }
 
-- (Promise *)GET:(NSString *)URLString parameters:(id)parameters
+- (PMKPromise *)GET:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {} failure:^(AFHTTPRequestOperation *operation, NSError *error) {}] promise];
 }
 
-- (Promise *)PUT:(NSString *)URLString parameters:(id)parameters;
+- (PMKPromise *)PUT:(NSString *)URLString parameters:(id)parameters;
 {
 	return [[self PUT:URLString parameters:parameters success:nil failure:nil] promise];
 }
 
-- (Promise *)DELETE:(NSString *)URLString parameters:(id)parameters
+- (PMKPromise *)DELETE:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self DELETE:URLString parameters:parameters success:nil failure:nil] promise];
 }
