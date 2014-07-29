@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.author   = { 'Christos Sotiriou' => '' }  
 
   s.public_header_files = 'PromiseKit+AFNetworking/AFNetworking+Promises.h'
-  s.source_files = 'PromiseKit+AFNetworking/*.{h,m}'
+  s.source_files = 'PromiseKit+AFNetworking/AFNetworking+Promises.{h,m}'
   s.requires_arc  = true
   
   s.ios.deployment_target = '7.0'
