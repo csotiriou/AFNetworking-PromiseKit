@@ -27,6 +27,7 @@
 
 
 @implementation AFHTTPRequestOperation (Promises)
+
 - (PMKPromise *)promise
 {
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter){
@@ -90,3 +91,91 @@
 
 
 @end
+
+
+
+@implementation AFHTTPSessionManager (Promises)
+
+- (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self POST:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+			fulfiller(PMKManifold(@[responseObject, task]));
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+- (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self POST:urlString parameters:parameters constructingBodyWithBlock:block success:^(NSURLSessionDataTask *task, id responseObject) {
+			fulfiller(PMKManifold(@[responseObject, task]));
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+- (PMKPromise *)GET:(NSString *)urlString parameters:(id)parameters
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self GET:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+			fulfiller(PMKManifold(@[responseObject, task]));
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+
+- (PMKPromise *)PUT:(NSString *)urlString parameters:(id)parameters
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self PUT:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+			fulfiller(PMKManifold(@[responseObject, task]));
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+- (PMKPromise *)HEAD:(NSString *)urlString parameters:(id)parameters
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self HEAD:urlString parameters:parameters success:^(NSURLSessionDataTask *task) {
+			fulfiller(task);
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+- (PMKPromise *)PATCH:(NSString *)urlString parameters:(id)parameters
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self PATCH:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+			fulfiller(PMKManifold(@[responseObject, task]));
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+- (PMKPromise *)DELETE:(NSString *)urlString parameters:(id)parameters
+{
+	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+		[[self DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+			fulfiller(PMKManifold(@[responseObject, task]));
+		} failure:^(NSURLSessionDataTask *task, NSError *error) {
+			rejecter(error);
+		}] resume];
+	}];
+}
+
+
+@end
+
+
+

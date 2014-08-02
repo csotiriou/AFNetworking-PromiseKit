@@ -60,3 +60,13 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 @end
 
 
+@interface AFHTTPSessionManager (Promises)
+
+- (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters;
+- (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
+- (PMKPromise *)GET:(NSString *)urlString parameters:(id)parameters;
+- (PMKPromise *)PUT:(NSString *)urlString parameters:(id)parameters;
+- (PMKPromise *)HEAD:(NSString *)urlString parameters:(id)parameters;
+- (PMKPromise *)PATCH:(NSString *)urlString parameters:(id)parameters;
+- (PMKPromise *)DELETE:(NSString *)urlString parameters:(id)parameters;
+@end
