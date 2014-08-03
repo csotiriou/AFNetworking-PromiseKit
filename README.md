@@ -1,4 +1,4 @@
-  PromiseKit+AFNetworking	{#welcome}
+PromiseKit+AFNetworking	{#welcome}
 =====================
 
 PromiseKit+AFNetworking is a small category addition to the delightful [PromiseKit][1], enabling it to work with the widely used [AFNetworking v 2.0][2]
@@ -41,6 +41,24 @@ self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 ```
 
 Objects returned by the plain AFHTTPRequestOperationManager are also returned here, as optional arguments (a response object of type 'id' and the AFHTTPRequestOperation). In case of errors, you can use the "catch" command of PromiseKit, and get the error thrown by AFNetworking and the original operation that spawned the error with 'error.userInfo[AFHTTPRequestOperationErrorKey]'
+
+###AFHTTPSessionManager
+
+New: Now AFHTTPSessionManager is supported, for use with AFNetworking 2.0 and iOS 7
+
+Sample function that logins using an AFHTTPSessionManager below:
+```
+- (PMKPromise *)loginWithUserName:(NSString *)userName andPassword:(NSString *)password
+{
+	return [self.sessionManager POST:@"api/login" parameters:@{@"user": userName, @"password" : password}].then(^(id responseObject, NSURLSessionDataTask *dataTask){
+	    //responseObject holds the response returned by AFNetworking
+        //dataDask will hold an NSURLSessionDataTask associated with this request, like it happens in AFHTTPSessionManager
+	});
+}
+
+```
+
+Objects returned during these operations are optional here. Maximum arguments in "then()" blocks are "2", a responseObject (that has been deserialized by AFNetworking) and an NSURLSessionDataTask.
 
 
 #To Do
