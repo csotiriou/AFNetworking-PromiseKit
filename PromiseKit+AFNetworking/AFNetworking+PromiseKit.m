@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-#import "AFNetworking+Promises.h"
+#import "AFNetworking+PromiseKit.h"
 
 
 
