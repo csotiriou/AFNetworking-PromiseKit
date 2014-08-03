@@ -67,7 +67,7 @@ You can use the project with CocoaPods. I haven't found the time to integrate th
 pod 'PromiseKit-AFNetworking', :git => 'http://github.com/csotiriou/PromiseKit-AFNetworking'
 ```
 
-Just put the above line into your podfile and then do a ```pod update``` to get the latest version.
+Just puth the above line into your podfile and then do a ```pod update``` to get the latest version.
 
 
 #To Do
@@ -75,6 +75,9 @@ Just put the above line into your podfile and then do a ```pod update``` to get 
 - Add unit tests
 - Implement it for AFHTTPSessionManager and AFURLSessionManager
 - Add some goodies, in cases where they make sense.
+
+#Special Thanks
+Special thanks to Jeff Miller ( https://github.com/jeffmax ) for his fixes and ```pod```ification of this repo
 
 #Disclaimer
 I have created this small addition in order to use it in a project I am making. I have had the opportunity to test it in real-life situations, but AFHTTPRequestOperationManager is not tested for DELETE, and PUT operations. If you find a bug, please submit a bug report.
