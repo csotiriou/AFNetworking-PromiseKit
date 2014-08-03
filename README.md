@@ -1,4 +1,4 @@
-PromiseKit+AFNetworking	{#welcome}
+  PromiseKit+AFNetworking	{#welcome}
 =====================
 
 PromiseKit+AFNetworking is a small category addition to the delightful [PromiseKit][1], enabling it to work with the widely used [AFNetworking v 2.0][2]
@@ -59,6 +59,15 @@ Sample function that logins using an AFHTTPSessionManager below:
 ```
 
 Objects returned during these operations are optional here. Maximum arguments in "then()" blocks are "2", a responseObject (that has been deserialized by AFNetworking) and an NSURLSessionDataTask.
+
+#Pods integration
+You can use the project with CocoaPods. I haven't found the time to integrate the project with the official CocoaPods repository, but you can use it anyway, like this:
+
+```
+pod 'PromiseKit-AFNetworking', :git => 'http://github.com/csotiriou/PromiseKit-AFNetworking'
+```
+
+Just put the above line into your podfile and then do a ```pod update``` to get the latest version.
 
 
 #To Do
