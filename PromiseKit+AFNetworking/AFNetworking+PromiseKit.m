@@ -100,7 +100,7 @@
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
 		[[self POST:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(@[responseObject, task]));
+			fulfiller(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
 			rejecter(error);
 		}] resume];
@@ -111,7 +111,7 @@
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
 		[[self POST:urlString parameters:parameters constructingBodyWithBlock:block success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(@[responseObject, task]));
+			fulfiller(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
 			rejecter(error);
 		}] resume];
@@ -122,7 +122,7 @@
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
 		[[self GET:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(@[responseObject, task]));
+			fulfiller(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
 			rejecter(error);
 		}] resume];
@@ -134,7 +134,7 @@
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
 		[[self PUT:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(@[responseObject, task]));
+			fulfiller(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
 			rejecter(error);
 		}] resume];
@@ -156,7 +156,7 @@
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
 		[[self PATCH:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(@[responseObject, task]));
+			fulfiller(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
 			rejecter(error);
 		}] resume];
@@ -167,7 +167,7 @@
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
 		[[self DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(@[responseObject, task]));
+			fulfiller(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
 			rejecter(error);
 		}] resume];
