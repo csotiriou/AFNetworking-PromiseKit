@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   
   s.author   = { 'Christos Sotiriou' => 'csotiriou86@gmail.com' }  
   
-  s.public_header_files = 'PromiseKit+AFNetworking/AFNetworking+Promises.h'
-  s.source_files = 'PromiseKit+AFNetworking/AFNetworking+Promises.{h,m}'
+  s.public_header_files = 'PromiseKit+AFNetworking/AFNetworking+PromiseKit.h'
+  s.source_files = 'PromiseKit+AFNetworking/AFNetworking+PromiseKit.{h,m}'
   s.requires_arc  = true
   
   s.ios.deployment_target = '7.0'

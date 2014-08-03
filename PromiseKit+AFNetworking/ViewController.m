@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <PromiseKit/PromiseKit.h>
-#import "AFNetworking+Promises.h"
+#import "AFNetworking+PromiseKit.h"
 
 
 @interface ViewController ()
