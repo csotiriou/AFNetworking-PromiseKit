@@ -73,7 +73,7 @@ Just puth the above line into your podfile and then do a ```pod update``` to get
 #To Do
 - Update documentation
 - Add unit tests
-- Implement it for AFHTTPSessionManager and AFURLSessionManager
+- Implement it for AFURLSessionManager
 - Add some goodies, in cases where they make sense.
 
 #Special Thanks
