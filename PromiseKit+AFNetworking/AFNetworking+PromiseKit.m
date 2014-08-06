@@ -89,6 +89,10 @@
 	return [[self DELETE:URLString parameters:parameters success:nil failure:nil] promise];
 }
 
+- (PMKPromise *)PATCH:(NSString *)URLString parameters:(id)parameters
+{
+	return [[self PATCH:URLString parameters:parameters success:nil failure:nil] promise];
+}
 
 @end
 
