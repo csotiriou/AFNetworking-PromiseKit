@@ -1,4 +1,4 @@
-  PromiseKit+AFNetworking	{#welcome}
+PromiseKit+AFNetworking	{#welcome}
 =====================
 
 PromiseKit+AFNetworking is a small category addition to the delightful [PromiseKit][1], enabling it to work with the widely used [AFNetworking v 2.0][2]
@@ -6,7 +6,10 @@ PromiseKit+AFNetworking is a small category addition to the delightful [PromiseK
 For the time being, it's a small category addition to the core AFNetworking, facilitating development with the plain AFHTTPRequestOperation and with the AFHTTPRequestOperationManager.
 
 #Installation
-Just copy AFNetworking+Promises.h and AFNetworking+Promises.m in your project and use them. CocoaPods integration is coming soon.
+You have two options: Either use cocoapods (look into the appropriate section below), or 
+ust copy AFNetworking+Promises.h and AFNetworking+Promises.m in your project and use them.
+
+I have just started using Cocoapods and making podfiles, so in case you encounter any issues with the podspec, please leave your comments in the issues section!!
 
 #Sample Uses:
 
@@ -61,19 +64,19 @@ Sample function that logins using an AFHTTPSessionManager below:
 Objects returned during these operations are optional here. Maximum arguments in "then()" blocks are "2", a responseObject (that has been deserialized by AFNetworking) and an NSURLSessionDataTask.
 
 #Pods integration
-You can use the project with CocoaPods. I haven't found the time to integrate the project with the official CocoaPods repository, but you can use it anyway, like this:
+You can use the project with CocoaPods. Simply put this line into your podfile:
 
 ```
-pod 'PromiseKit-AFNetworking', :git => 'http://github.com/csotiriou/PromiseKit-AFNetworking'
+pod 'PromiseKit-AFNetworking'
 ```
 
-Just puth the above line into your podfile and then do a ```pod update``` to get the latest version.
+Then do a ```pod update``` to get the latest version.
 
 
 #To Do
 - Update documentation
 - Add unit tests
-- Implement it for AFURLSessionManager
+- Implement it for AFURLSessionManager (if it makes sense)
 - Add some goodies, in cases where they make sense.
 
 #Special Thanks
