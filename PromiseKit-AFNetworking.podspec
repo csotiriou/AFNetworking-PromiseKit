@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name     = 'PromiseKit-AFNetworking'
-  s.version  = '0.1.2' 
+  s.version  = '0.1.3' 
   s.summary  = 'PromiseKit extensions for AFNetworking'
   s.license  =  'MIT'
   s.homepage = 'https://github.com/csotiriou/AFNetworking-PromiseKit/'
@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
   s.source_files = 'PromiseKit+AFNetworking/AFNetworking+PromiseKit.{h,m}'
   s.requires_arc  = true
   
-  s.ios.deployment_target = '7.0'
+  s.ios.deployment_target = '6.0'
   s.osx.deployment_target = '10.8'
   
   s.dependency 'AFNetworking', '~>2.0.0'
-  s.dependency 'PromiseKit', '~> 0.9.13'
+  s.dependency 'PromiseKit/Promise', '~> 0.9.13'
     
 end
