@@ -14,7 +14,7 @@ I have just started using Cocoapods and making podfiles, so in case you encounte
 #Sample Uses:
 
 ### Plain HTTP Request
-```
+```objectivec
 [AFHTTPRequestOperation request:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://oramind.com/"]]].then(^(id responseObject){
 	NSLog(@"operation completed! %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
 }).catch(^(NSError *error){
@@ -26,7 +26,7 @@ I have just started using Cocoapods and making podfiles, so in case you encounte
 The above code will immediately execute the HTTP Request by adding it to the current queue, or the main queue if the current queue does not exist. You can also add it to a different queue (see the header file)
 
 ###AFHTTPRequestOperationManager
-```
+```objectivec
 self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
 self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
@@ -45,12 +45,23 @@ self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
 Objects returned by the plain AFHTTPRequestOperationManager are also returned here, as optional arguments (a response object of type 'id' and the AFHTTPRequestOperation). In case of errors, you can use the "catch" command of PromiseKit, and get the error thrown by AFNetworking and the original operation that spawned the error with 'error.userInfo[AFHTTPRequestOperationErrorKey]'
 
+Making concurrent operations is a simple matter of calling "-when" on PMKPromise as described in the official documentation.
+
+```objectivec
+[PMKPromise when:@[
+	[self.operationManager GET:@"ip" parameters:nil].then(^(){numberOfOperationsCompleted ++;}),
+	[self.operationManager GET:@"get" parameters:nil].then(^(){numberOfOperationsCompleted ++;})
+                   ]].then(^(){
+		//do something when all operations are finished
+    });
+```
+
 ###AFHTTPSessionManager
 
 New: Now AFHTTPSessionManager is supported, for use with AFNetworking 2.0 and iOS 7
 
 Sample function that logins using an AFHTTPSessionManager below:
-```
+```objectivec
 - (PMKPromise *)loginWithUserName:(NSString *)userName andPassword:(NSString *)password
 {
 	return [self.sessionManager POST:@"api/login" parameters:@{@"user": userName, @"password" : password}].then(^(id responseObject, NSURLSessionDataTask *dataTask){
@@ -62,6 +73,12 @@ Sample function that logins using an AFHTTPSessionManager below:
 ```
 
 Objects returned during these operations are optional here. Maximum arguments in "then()" blocks are "2", a responseObject (that has been deserialized by AFNetworking) and an NSURLSessionDataTask.
+
+Of course, chaining and making concurrent operations work the same way as in AFHTTPRequestOperationManager.
+
+#Samples
+Now unit tests are available, which demonstrate the basic functionality and give some basic examples on how to use this category. More unit tests are going to be added in the near future.
+
 
 #Pods integration
 You can use the project with CocoaPods. Simply put this line into your podfile:
@@ -75,7 +92,7 @@ Then do a ```pod update``` to get the latest version.
 
 #To Do
 - Update documentation
-- Add unit tests
+- Add unit tests (DONE!)
 - Implement it for AFURLSessionManager (if it makes sense)
 - Add some goodies, in cases where they make sense.
 
