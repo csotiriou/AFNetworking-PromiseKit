@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06559D4619F5927F00EE7DE5 /* AFNetworking+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B81A8D19F3F18C00A8CF14 /* AFNetworking+PromiseKit.m */; };
+		06559D4A19F5A45E00EE7DE5 /* HTTPClient+PromiseKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06559D4919F5A45E00EE7DE5 /* HTTPClient+PromiseKitTests.m */; };
 		0666CC6E192961BC00110C1B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666CC6D192961BC00110C1B /* Foundation.framework */; };
 		0666CC70192961BC00110C1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666CC6F192961BC00110C1B /* CoreGraphics.framework */; };
 		0666CC72192961BC00110C1B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666CC71192961BC00110C1B /* UIKit.framework */; };
@@ -20,8 +22,9 @@
 		0666CC8E192961BC00110C1B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666CC6D192961BC00110C1B /* Foundation.framework */; };
 		0666CC8F192961BC00110C1B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666CC71192961BC00110C1B /* UIKit.framework */; };
 		0666CC97192961BC00110C1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0666CC95192961BC00110C1B /* InfoPlist.strings */; };
-		0666CC99192961BC00110C1B /* PromiseKit_AFNetworkingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666CC98192961BC00110C1B /* PromiseKit_AFNetworkingTests.m */; };
+		0666CC99192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666CC98192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m */; };
 		06B81A8E19F3F18C00A8CF14 /* AFNetworking+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B81A8D19F3F18C00A8CF14 /* AFNetworking+PromiseKit.m */; };
+		3226CA0322C09F6079942E41 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FDF12BF1128C4840193CEB /* libPods-Tests.a */; };
 		AD28C8C8F4FC463BAAEE28B8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5035901E6FB54EBE8B10E28F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06559D4719F59C5B00EE7DE5 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		06559D4919F5A45E00EE7DE5 /* HTTPClient+PromiseKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HTTPClient+PromiseKitTests.m"; sourceTree = "<group>"; };
+		06559D4B19F5A49100EE7DE5 /* TestCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCommon.h; sourceTree = "<group>"; };
 		0666CC6A192961BC00110C1B /* PromiseKit+AFNetworking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromiseKit+AFNetworking.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0666CC6D192961BC00110C1B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0666CC6F192961BC00110C1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -50,16 +56,19 @@
 		0666CC82192961BC00110C1B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		0666CC83192961BC00110C1B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0666CC85192961BC00110C1B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		0666CC8B192961BC00110C1B /* PromiseKit+AFNetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PromiseKit+AFNetworkingTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0666CC8B192961BC00110C1B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0666CC8C192961BC00110C1B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0666CC94192961BC00110C1B /* PromiseKit+AFNetworkingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PromiseKit+AFNetworkingTests-Info.plist"; sourceTree = "<group>"; };
 		0666CC96192961BC00110C1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0666CC98192961BC00110C1B /* PromiseKit_AFNetworkingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PromiseKit_AFNetworkingTests.m; sourceTree = "<group>"; };
+		0666CC98192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperation+PromiseTests.m"; sourceTree = "<group>"; };
 		06B81A8C19F3F18C00A8CF14 /* AFNetworking+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFNetworking+PromiseKit.h"; sourceTree = "<group>"; };
 		06B81A8D19F3F18C00A8CF14 /* AFNetworking+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking+PromiseKit.m"; sourceTree = "<group>"; };
+		468E42E9FFEFCB6B8583FCEE /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5035901E6FB54EBE8B10E28F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AEAB2E2EA0C34F16181045F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C8FDF12BF1128C4840193CEB /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A299DE9A54CE253A26E387 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F0855C7DD91C82C533ABE940 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +90,7 @@
 				0666CC8D192961BC00110C1B /* XCTest.framework in Frameworks */,
 				0666CC8F192961BC00110C1B /* UIKit.framework in Frameworks */,
 				0666CC8E192961BC00110C1B /* Foundation.framework in Frameworks */,
+				3226CA0322C09F6079942E41 /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				0666CC6A192961BC00110C1B /* PromiseKit+AFNetworking.app */,
-				0666CC8B192961BC00110C1B /* PromiseKit+AFNetworkingTests.xctest */,
+				0666CC8B192961BC00110C1B /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,11 +120,13 @@
 		0666CC6C192961BC00110C1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06559D4719F59C5B00EE7DE5 /* libPods.a */,
 				0666CC6D192961BC00110C1B /* Foundation.framework */,
 				0666CC6F192961BC00110C1B /* CoreGraphics.framework */,
 				0666CC71192961BC00110C1B /* UIKit.framework */,
 				0666CC8C192961BC00110C1B /* XCTest.framework */,
 				5035901E6FB54EBE8B10E28F /* libPods.a */,
+				C8FDF12BF1128C4840193CEB /* libPods-Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -149,7 +161,9 @@
 		0666CC92192961BC00110C1B /* PromiseKit+AFNetworkingTests */ = {
 			isa = PBXGroup;
 			children = (
-				0666CC98192961BC00110C1B /* PromiseKit_AFNetworkingTests.m */,
+				06559D4B19F5A49100EE7DE5 /* TestCommon.h */,
+				0666CC98192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m */,
+				06559D4919F5A45E00EE7DE5 /* HTTPClient+PromiseKitTests.m */,
 				0666CC93192961BC00110C1B /* Supporting Files */,
 			);
 			path = "PromiseKit+AFNetworkingTests";
@@ -169,6 +183,8 @@
 			children = (
 				E9A299DE9A54CE253A26E387 /* Pods.debug.xcconfig */,
 				8AEAB2E2EA0C34F16181045F /* Pods.release.xcconfig */,
+				468E42E9FFEFCB6B8583FCEE /* Pods-Tests.debug.xcconfig */,
+				F0855C7DD91C82C533ABE940 /* Pods-Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -195,22 +211,24 @@
 			productReference = 0666CC6A192961BC00110C1B /* PromiseKit+AFNetworking.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0666CC8A192961BC00110C1B /* PromiseKit+AFNetworkingTests */ = {
+		0666CC8A192961BC00110C1B /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0666CC9F192961BC00110C1B /* Build configuration list for PBXNativeTarget "PromiseKit+AFNetworkingTests" */;
+			buildConfigurationList = 0666CC9F192961BC00110C1B /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
+				1F0DA65DEF5603F8D6F8B6F5 /* Check Pods Manifest.lock */,
 				0666CC87192961BC00110C1B /* Sources */,
 				0666CC88192961BC00110C1B /* Frameworks */,
 				0666CC89192961BC00110C1B /* Resources */,
+				96CEB63E63B1122B0A17A290 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				0666CC91192961BC00110C1B /* PBXTargetDependency */,
 			);
-			name = "PromiseKit+AFNetworkingTests";
+			name = Tests;
 			productName = "PromiseKit+AFNetworkingTests";
-			productReference = 0666CC8B192961BC00110C1B /* PromiseKit+AFNetworkingTests.xctest */;
+			productReference = 0666CC8B192961BC00110C1B /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -241,7 +259,7 @@
 			projectRoot = "";
 			targets = (
 				0666CC69192961BC00110C1B /* PromiseKit+AFNetworking */,
-				0666CC8A192961BC00110C1B /* PromiseKit+AFNetworkingTests */,
+				0666CC8A192961BC00110C1B /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -268,6 +286,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1F0DA65DEF5603F8D6F8B6F5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		2EB4A77038C243E695F8FB55 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,6 +314,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		96CEB63E63B1122B0A17A290 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F80E4859162947088BD37311 /* Copy Pods Resources */ = {
@@ -316,7 +364,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0666CC99192961BC00110C1B /* PromiseKit_AFNetworkingTests.m in Sources */,
+				0666CC99192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m in Sources */,
+				06559D4A19F5A45E00EE7DE5 /* HTTPClient+PromiseKitTests.m in Sources */,
+				06559D4619F5927F00EE7DE5 /* AFNetworking+PromiseKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +508,7 @@
 		};
 		0666CCA0192961BC00110C1B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 468E42E9FFEFCB6B8583FCEE /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PromiseKit+AFNetworking.app/PromiseKit+AFNetworking";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -472,6 +523,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PromiseKit+AFNetworkingTests/PromiseKit+AFNetworkingTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -480,6 +535,7 @@
 		};
 		0666CCA1192961BC00110C1B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0855C7DD91C82C533ABE940 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PromiseKit+AFNetworking.app/PromiseKit+AFNetworking";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -490,6 +546,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PromiseKit+AFNetworking/PromiseKit+AFNetworking-Prefix.pch";
 				INFOPLIST_FILE = "PromiseKit+AFNetworkingTests/PromiseKit+AFNetworkingTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -517,7 +577,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0666CC9F192961BC00110C1B /* Build configuration list for PBXNativeTarget "PromiseKit+AFNetworkingTests" */ = {
+		0666CC9F192961BC00110C1B /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0666CCA0192961BC00110C1B /* Debug */,

@@ -37,6 +37,19 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 - (PMKPromise *)promise;
 
 /**
+ @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside. The operation will immediately start
+ */
+- (PMKPromise *)promiseAndStartImmediately;
+
+
+/**
+ @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside
+ 
+ If 'startImmediately is 'YES' then the operation will start immediately
+ */
+- (PMKPromise *)promiseByStartingImmediately:(BOOL)startImmediately;
+
+/**
  @brief Executes immediately an AFHTTPRequestOperation by adding an operation set up with a NSURLRequest
  to the current queue (or to the main queue if there is no current queue
  */

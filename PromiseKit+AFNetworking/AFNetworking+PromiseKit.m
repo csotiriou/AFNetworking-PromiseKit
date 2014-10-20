@@ -30,6 +30,16 @@
 
 - (PMKPromise *)promise
 {
+    return [self promiseByStartingImmediately:NO];
+}
+
+- (PMKPromise *)promiseAndStartImmediately
+{
+    return [self promiseByStartingImmediately:YES];
+}
+
+- (PMKPromise *)promiseByStartingImmediately:(BOOL)startImmediately
+{
     return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter){
         [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             fulfiller(PMKManifold(responseObject, operation));
@@ -39,6 +49,9 @@
             id newerror = [NSError errorWithDomain:error.domain code:error.code userInfo:info];
             rejecter(newerror);
         }];
+        if (startImmediately) {
+            [self start];
+        }
     }];
 }
 
