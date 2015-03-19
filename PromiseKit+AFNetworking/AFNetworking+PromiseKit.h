@@ -76,6 +76,25 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 
 @interface AFHTTPSessionManager (Promises)
 
+- (PMKPromise *)dataTaskWithRequest:(NSURLRequest *)request;
+
+- (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromFile:(NSURL *)fileURL
+                             progress:(NSProgress * __autoreleasing *)progress;
+- (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromData:(NSData *)bodyData
+                             progress:(NSProgress * __autoreleasing *)progress;
+- (PMKPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
+                                     progress:(NSProgress * __autoreleasing *)progress;
+
+- (PMKPromise *)downloadTaskWithRequest:(NSURLRequest *)request
+                               progress:(NSProgress * __autoreleasing *)progress
+                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination;
+- (PMKPromise *)downloadTaskWithResumeData:(NSData *)resumeData
+                                  progress:(NSProgress * __autoreleasing *)progress
+                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination;
+
+
 - (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters;
 - (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
 - (PMKPromise *)GET:(NSString *)urlString parameters:(id)parameters;

@@ -113,6 +113,99 @@
 
 @implementation AFHTTPSessionManager (Promises)
 
+- (PMKPromise *)dataTaskWithRequest:(NSURLRequest *)request
+{
+  return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        rejecter(error);
+      }
+      else {
+        fulfiller(PMKManifold(responseObject, response));
+      }
+    }] resume];
+  }];
+}
+
+- (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromFile:(NSURL *)fileURL
+                             progress:(NSProgress * __autoreleasing *)progress
+{
+  return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    [[self uploadTaskWithRequest:request fromFile:fileURL progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        rejecter(error);
+      }
+      else {
+        fulfiller(PMKManifold(responseObject, response));
+      }
+    }] resume];
+  }];
+}
+
+- (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromData:(NSData *)bodyData
+                             progress:(NSProgress * __autoreleasing *)progress
+{
+  return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    [[self uploadTaskWithRequest:request fromData:bodyData progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        rejecter(error);
+      }
+      else {
+        fulfiller(PMKManifold(responseObject, response));
+      }
+    }] resume];
+  }];
+}
+
+- (PMKPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
+                                     progress:(NSProgress * __autoreleasing *)progress
+{
+  return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    [[self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        rejecter(error);
+      }
+      else {
+        fulfiller(PMKManifold(responseObject, response));
+      }
+    }] resume];
+  }];
+}
+
+- (PMKPromise *)downloadTaskWithRequest:(NSURLRequest *)request
+                               progress:(NSProgress * __autoreleasing *)progress
+                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+{
+  return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    [[self downloadTaskWithRequest:request progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+      if (error) {
+        rejecter(error);
+      }
+      else {
+        fulfiller(PMKManifold(filePath, response));
+      }
+    }] resume];
+  }];
+}
+
+- (PMKPromise *)downloadTaskWithResumeData:(NSData *)resumeData
+                                  progress:(NSProgress * __autoreleasing *)progress
+                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+{
+  return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+    [[self downloadTaskWithResumeData:resumeData progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+      if (error) {
+        rejecter(error);
+      }
+      else {
+        fulfiller(PMKManifold(filePath, response));
+      }
+    }] resume];
+  }];
+}
+
 - (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters
 {
 	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
