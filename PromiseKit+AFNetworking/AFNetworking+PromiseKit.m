@@ -135,7 +135,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self POST:urlString parameters:parameters].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];
@@ -163,7 +163,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self POST:urlString parameters:parameters constructingBodyWithBlock:block].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];
@@ -191,7 +191,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self GET:urlString parameters:parameters].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];
@@ -220,7 +220,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self PUT:urlString parameters:parameters].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];
@@ -248,7 +248,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self HEAD:urlString parameters:parameters].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];
@@ -276,7 +276,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self PATCH:urlString parameters:parameters].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];
@@ -306,7 +306,7 @@
         NSDictionary *parameters = parametersArray[i];
 
         [operations addObject:[self DELETE:urlString parameters:parameters].then(^(id responseObject, NSURLSessionDataTask *task){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseObjectTask : task}];
+            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
         })];
     }
     return [PMKPromise when:operations];

@@ -14,7 +14,7 @@
 
 @interface ViewController ()
 @property (nonatomic, strong) AFHTTPRequestOperation *operation;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 @end
 
 @implementation ViewController
@@ -22,7 +22,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+
+    self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[[NSURL alloc] initWithString:@"http://oramind.com"]];
+    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [self.manager GETMultiple:@[@"/", @"/", @"/", @"/"] parameters:@[@{},@{},@{},@{}]].then(^(NSArray * responsesArray){
+        for (NSDictionary *responseDictionary in responsesArray){
+            NSLog(@"task description: %@", responseDictionary[kPMKAFResponseTaskKey]);
+            NSLog(@"response object description: %@", responseDictionary[kPMKAFResponseObjectKey]);
+        }
+    });
 	
 //	[AFHTTPRequestOperation request:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://oramind.com/"]]].then(^(id responseObject){
 //		NSLog(@"operation completed! %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);

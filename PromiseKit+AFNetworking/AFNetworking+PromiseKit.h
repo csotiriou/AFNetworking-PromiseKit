@@ -28,7 +28,7 @@
 static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError";
 
 #define kPMKAFResponseObjectKey @"responseObject"
-#define kPMKAFResponseObjectTask @"task"
+#define kPMKAFResponseTaskKey @"task"
 
 
 
@@ -98,7 +98,7 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 *
 * When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
 * -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseObjectTask --> The task that initiated the request
+* -- kPMKAFResponseTaskKey --> The task that initiated the request
 *
 * @param urlStringsArray an array of relative URL Strings
 * @param parametersArray an associative array of parameters to be passed to their corresponding
@@ -115,7 +115,7 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 *
 * When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
 * -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseObjectTask --> The task that initiated the request
+* -- kPMKAFResponseTaskKey --> The task that initiated the request
 *
 * @param urlStringsArray an array of relative URL Strings
 * @param parametersArray an associative array of parameters to be passed to their corresponding
@@ -131,7 +131,7 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 *
 * When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
 * -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseObjectTask --> The task that initiated the request
+* -- kPMKAFResponseTaskKey --> The task that initiated the request
 *
 * @param urlStringsArray an array of relative URL Strings
 * @param parametersArray an associative array of parameters to be passed to their corresponding
@@ -147,7 +147,7 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 *
 * When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
 * -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseObjectTask --> The task that initiated the request
+* -- kPMKAFResponseTaskKey --> The task that initiated the request
 *
 * @param urlStringsArray an array of relative URL Strings
 * @param parametersArray an associative array of parameters to be passed to their corresponding
@@ -164,7 +164,7 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 *
 * When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
 * -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseObjectTask --> The task that initiated the request
+* -- kPMKAFResponseTaskKey --> The task that initiated the request
 *
 * @param urlStringsArray an array of relative URL Strings
 * @param parametersArray an associative array of parameters to be passed to their corresponding
