@@ -27,6 +27,11 @@
 
 static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError";
 
+#define kPMKAFResponseObjectKey @"responseObject"
+#define kPMKAFResponseObjectTask @"task"
+
+
+
 @interface AFHTTPRequestOperation (Promises)
 /**
  @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside.
@@ -83,4 +88,87 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 - (PMKPromise *)HEAD:(NSString *)urlString parameters:(id)parameters;
 - (PMKPromise *)PATCH:(NSString *)urlString parameters:(id)parameters;
 - (PMKPromise *)DELETE:(NSString *)urlString parameters:(id)parameters;
+
+
+/**
+* @brief Performs a GET request on multiple URLs. It uses 'when' under the hood
+*
+* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
+*   an empty NSDictionary instead.
+*
+* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
+* -- kPMKAFResponseObjectKey --> The response Object of the request
+* -- kPMKAFResponseObjectTask --> The task that initiated the request
+*
+* @param urlStringsArray an array of relative URL Strings
+* @param parametersArray an associative array of parameters to be passed to their corresponding
+*   URL strings (will be associated by their position in the array, so make sure they match)
+*/
+- (PMKPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
+
+
+/**
+* @brief Performs a PUT request on multiple URLs. It uses 'when' under the hood
+*
+* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
+*   an empty NSDictionary instead.
+*
+* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
+* -- kPMKAFResponseObjectKey --> The response Object of the request
+* -- kPMKAFResponseObjectTask --> The task that initiated the request
+*
+* @param urlStringsArray an array of relative URL Strings
+* @param parametersArray an associative array of parameters to be passed to their corresponding
+*   URL strings (will be associated by their position in the array, so make sure they match)
+*/
+- (PMKPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
+
+/**
+* @brief Performs a HEAD request on multiple URLs. It uses 'when' under the hood
+*
+* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
+*   an empty NSDictionary instead.
+*
+* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
+* -- kPMKAFResponseObjectKey --> The response Object of the request
+* -- kPMKAFResponseObjectTask --> The task that initiated the request
+*
+* @param urlStringsArray an array of relative URL Strings
+* @param parametersArray an associative array of parameters to be passed to their corresponding
+*   URL strings (will be associated by their position in the array, so make sure they match)
+*/
+- (PMKPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
+
+/**
+* @brief Performs a PATCH request on multiple URLs. It uses 'when' under the hood
+*
+* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
+*   an empty NSDictionary instead.
+*
+* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
+* -- kPMKAFResponseObjectKey --> The response Object of the request
+* -- kPMKAFResponseObjectTask --> The task that initiated the request
+*
+* @param urlStringsArray an array of relative URL Strings
+* @param parametersArray an associative array of parameters to be passed to their corresponding
+*   URL strings (will be associated by their position in the array, so make sure they match)
+*/
+- (PMKPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
+
+
+/**
+* @brief Performs a DELETE request on multiple URLs. It uses 'when' under the hood
+*
+* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
+*   an empty NSDictionary instead.
+*
+* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
+* -- kPMKAFResponseObjectKey --> The response Object of the request
+* -- kPMKAFResponseObjectTask --> The task that initiated the request
+*
+* @param urlStringsArray an array of relative URL Strings
+* @param parametersArray an associative array of parameters to be passed to their corresponding
+*   URL strings (will be associated by their position in the array, so make sure they match)
+*/
+- (PMKPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
 @end
