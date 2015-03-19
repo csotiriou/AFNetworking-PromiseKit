@@ -76,23 +76,29 @@ static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError
 
 @interface AFHTTPSessionManager (Promises)
 
-- (PMKPromise *)dataTaskWithRequest:(NSURLRequest *)request;
+- (PMKPromise *)dataTaskWithRequest:(NSURLRequest *)request
+                               task:(NSURLSessionTask * __autoreleasing *)task;
 
 - (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromFile:(NSURL *)fileURL
-                             progress:(NSProgress * __autoreleasing *)progress;
+                             progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 - (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromData:(NSData *)bodyData
-                             progress:(NSProgress * __autoreleasing *)progress;
+                             progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 - (PMKPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
-                                     progress:(NSProgress * __autoreleasing *)progress;
+                                     progress:(NSProgress * __autoreleasing *)progress
+                                   uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 - (PMKPromise *)downloadTaskWithRequest:(NSURLRequest *)request
                                progress:(NSProgress * __autoreleasing *)progress
-                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination;
+                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
 - (PMKPromise *)downloadTaskWithResumeData:(NSData *)resumeData
                                   progress:(NSProgress * __autoreleasing *)progress
-                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination;
+                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                              downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
 
 
 - (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters;

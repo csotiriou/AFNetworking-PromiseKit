@@ -113,96 +113,119 @@
 
 @implementation AFHTTPSessionManager (Promises)
 
+- (NSURLSessionTask *__autoreleasing *)pointerToTaskFromTask:(NSURLSessionTask * __autoreleasing *)task {
+  // create a pointer to a task, since we can't have a nil value
+  if (!task) {
+    NSURLSessionTask *__autoreleasing pointer;
+    NSURLSessionTask *__autoreleasing *replacement = &pointer;
+    task = replacement;
+  }
+  return task;
+}
+
 - (PMKPromise *)dataTaskWithRequest:(NSURLRequest *)request
+                               task:(NSURLSessionTask * __autoreleasing *)task
 {
+  task = [self pointerToTaskFromTask:task];
   return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    *task = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
       if (error) {
         rejecter(error);
       }
       else {
         fulfiller(PMKManifold(responseObject, response));
       }
-    }] resume];
+    }];
   }];
 }
 
 - (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromFile:(NSURL *)fileURL
                              progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
+  uploadTask = [self pointerToTaskFromTask:uploadTask];
   return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-    [[self uploadTaskWithRequest:request fromFile:fileURL progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    *uploadTask = [self uploadTaskWithRequest:request fromFile:fileURL progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
       if (error) {
         rejecter(error);
       }
       else {
         fulfiller(PMKManifold(responseObject, response));
       }
-    }] resume];
+    }];
   }];
 }
 
 - (PMKPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromData:(NSData *)bodyData
                              progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
+  uploadTask = [self pointerToTaskFromTask:uploadTask];
   return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-    [[self uploadTaskWithRequest:request fromData:bodyData progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    *uploadTask = [self uploadTaskWithRequest:request fromData:bodyData progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
       if (error) {
         rejecter(error);
       }
       else {
         fulfiller(PMKManifold(responseObject, response));
       }
-    }] resume];
+    }];
   }];
 }
 
 - (PMKPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
                                      progress:(NSProgress * __autoreleasing *)progress
+                                   uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
+  uploadTask = [self pointerToTaskFromTask:uploadTask];
   return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-    [[self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    *uploadTask = [self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
       if (error) {
         rejecter(error);
       }
       else {
         fulfiller(PMKManifold(responseObject, response));
       }
-    }] resume];
+    }];
   }];
 }
 
 - (PMKPromise *)downloadTaskWithRequest:(NSURLRequest *)request
                                progress:(NSProgress * __autoreleasing *)progress
                             destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
 {
+  downloadTask = [self pointerToTaskFromTask:downloadTask];
   return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-    [[self downloadTaskWithRequest:request progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+    *downloadTask = [self downloadTaskWithRequest:request progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
       if (error) {
         rejecter(error);
       }
       else {
         fulfiller(PMKManifold(filePath, response));
       }
-    }] resume];
+    }];
   }];
 }
 
 - (PMKPromise *)downloadTaskWithResumeData:(NSData *)resumeData
                                   progress:(NSProgress * __autoreleasing *)progress
                                destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                              downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
 {
+  downloadTask = [self pointerToTaskFromTask:downloadTask];
   return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
-    [[self downloadTaskWithResumeData:resumeData progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+    *downloadTask = [self downloadTaskWithResumeData:resumeData progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
       if (error) {
         rejecter(error);
       }
       else {
         fulfiller(PMKManifold(filePath, response));
       }
-    }] resume];
+    }];
+    
   }];
 }
 
