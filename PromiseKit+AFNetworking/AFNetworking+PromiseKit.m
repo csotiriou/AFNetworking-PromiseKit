@@ -23,6 +23,7 @@
  */
 
 #import "AFNetworking+PromiseKit.h"
+#import <PromiseKit/Promise+When.h>
 
 typedef enum {
 	AF_OPERATION_POST,
