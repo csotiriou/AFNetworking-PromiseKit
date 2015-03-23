@@ -204,7 +204,7 @@
         rejecter(error);
       }
       else {
-        fulfiller(PMKManifold(filePath, response));
+        fulfiller(PMKManifold(response, filePath));
       }
     }];
   }];
@@ -222,7 +222,7 @@
         rejecter(error);
       }
       else {
-        fulfiller(PMKManifold(filePath, response));
+        fulfiller(PMKManifold(response, filePath));
       }
     }];
     
