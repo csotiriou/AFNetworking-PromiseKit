@@ -133,7 +133,7 @@
         rejecter(error);
       }
       else {
-        fulfiller(PMKManifold(responseObject, response));
+        fulfiller(PMKManifold(response, responseObject));
       }
     }];
   }];
@@ -151,7 +151,7 @@
         rejecter(error);
       }
       else {
-        fulfiller(PMKManifold(responseObject, response));
+        fulfiller(PMKManifold(response, responseObject));
       }
     }];
   }];
@@ -169,7 +169,7 @@
         rejecter(error);
       }
       else {
-        fulfiller(PMKManifold(responseObject, response));
+        fulfiller(PMKManifold(response, responseObject));
       }
     }];
   }];
@@ -186,7 +186,7 @@
         rejecter(error);
       }
       else {
-        fulfiller(PMKManifold(responseObject, response));
+        fulfiller(PMKManifold(response, responseObject));
       }
     }];
   }];
