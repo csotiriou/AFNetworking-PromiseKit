@@ -9,9 +9,8 @@
 #import <XCTest/XCTest.h>
 #import "AFNetworking+PromiseKit.h"
 #import <PromiseKit/Promise.h>
-#import <PromiseKit/Promise+When.h>
 #define EXP_SHORTHAND
-#import <Expecta.h>
+#import "Expecta.h"
 #import "TestCommon.h"
 
 @interface PromiseKit_AFNetworkingTests : XCTestCase
@@ -77,16 +76,15 @@
     
     PMKPromise *promise1 = [[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kTestURL]]] promiseAndStartImmediately].then(^(){ numberOfOperationsCompleted ++; });
     PMKPromise *promise2 = [[[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kTestURL]]] promiseAndStartImmediately].then(^(){ numberOfOperationsCompleted ++; });
-
-    [PMKPromise when:@[promise1, promise2]].then(^(){
-        [expectation fulfill];
-    });
+	
+	PMKWhen(@[promise1, promise2]).then(^(){
+		[expectation fulfill];
+	});
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         expect(error).to.beNil();
         expect(numberOfOperationsCompleted).to.equal(2);
     }];
-    
 }
 
 

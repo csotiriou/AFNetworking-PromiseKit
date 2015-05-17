@@ -23,7 +23,6 @@
  */
 
 #import "AFNetworking+PromiseKit.h"
-#import <PromiseKit/Promise+When.h>
 
 typedef enum {
 	AF_OPERATION_POST,
@@ -36,26 +35,26 @@ typedef enum {
 
 @implementation AFHTTPRequestOperation (Promises)
 
-- (PMKPromise *)promise
+- (AFPromise *)promise
 {
 	return [self promiseByStartingImmediately:NO];
 }
 
-- (PMKPromise *)promiseAndStartImmediately
+- (AFPromise *)promiseAndStartImmediately
 {
 	return [self promiseByStartingImmediately:YES];
 }
 
-- (PMKPromise *)promiseByStartingImmediately:(BOOL)startImmediately
+- (AFPromise *)promiseByStartingImmediately:(BOOL)startImmediately
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter){
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolver){
 		[self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-			fulfiller(PMKManifold(responseObject, operation));
+			resolver(PMKManifold(responseObject, operation));
 		} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 			id info = error.userInfo.mutableCopy;
 			info[AFHTTPRequestOperationErrorKey] = operation;
 			id newerror = [NSError errorWithDomain:error.domain code:error.code userInfo:info];
-			rejecter(newerror);
+			resolver(newerror);
 		}];
 		if (startImmediately) {
 			[self start];
@@ -63,13 +62,13 @@ typedef enum {
 	}];
 }
 
-+ (PMKPromise *)request:(NSURLRequest *)request
++ (AFPromise *)request:(NSURLRequest *)request
 {
 	NSOperationQueue *q = [NSOperationQueue currentQueue] ? : [NSOperationQueue mainQueue];
 	return [self request:request queue:q];
 }
 
-+ (PMKPromise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue
++ (AFPromise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue
 {
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
 	[queue addOperation:operation];
@@ -82,76 +81,76 @@ typedef enum {
 
 @implementation AFHTTPRequestOperationManager (Promises)
 
-- (PMKPromise *)POST:(NSString *)URLString parameters:(id)parameters
+- (AFPromise *)POST:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {} failure:^(AFHTTPRequestOperation *operation, NSError *error) {}] promise];
 }
 
-- (PMKPromise *)POSTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)POSTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     return [self operationSequenceWithType:AF_OPERATION_POST urls:urlStringsArray parameters:parametersArray];
 }
 
 
-- (PMKPromise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
+- (AFPromise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 {
 	return [[self POST:URLString parameters:parameters constructingBodyWithBlock:block success:nil failure:nil] promise];
 }
 
-- (PMKPromise *)GET:(NSString *)URLString parameters:(id)parameters
+- (AFPromise *)GET:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {} failure:^(AFHTTPRequestOperation *operation, NSError *error) {}] promise];
 }
 
-- (PMKPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     return [self operationSequenceWithType:AF_OPERATION_GET urls:urlStringsArray parameters:parametersArray];
 }
 
-- (PMKPromise *)PUT:(NSString *)URLString parameters:(id)parameters;
+- (AFPromise *)PUT:(NSString *)URLString parameters:(id)parameters;
 {
 	return [[self PUT:URLString parameters:parameters success:nil failure:nil] promise];
 }
 
-- (PMKPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     return [self operationSequenceWithType:AF_OPERATION_PUT urls:urlStringsArray parameters:parametersArray];
 }
 
-- (PMKPromise *)DELETE:(NSString *)URLString parameters:(id)parameters
+- (AFPromise *)DELETE:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self DELETE:URLString parameters:parameters success:nil failure:nil] promise];
 }
 
-- (PMKPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     return [self operationSequenceWithType:AF_OPERATION_DELETE urls:urlStringsArray parameters:parametersArray];
 }
 
 
-- (PMKPromise *)PATCH:(NSString *)URLString parameters:(id)parameters
+- (AFPromise *)PATCH:(NSString *)URLString parameters:(id)parameters
 {
 	return [[self PATCH:URLString parameters:parameters success:nil failure:nil] promise];
 }
 
-- (PMKPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     return [self operationSequenceWithType:AF_OPERATION_PATCH urls:urlStringsArray parameters:parametersArray];
 }
 
 
-- (PMKPromise *)HEAD:(NSString *)URLString parameters:(id)parameters
+- (AFPromise *)HEAD:(NSString *)URLString parameters:(id)parameters
 {
     return [[self HEAD:URLString parameters:parameters success:nil failure:nil] promise];
 }
 
-- (PMKPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     return [self operationSequenceWithType:AF_OPERATION_HEAD urls:urlStringsArray parameters:parametersArray];
 }
 
 
-- (PMKPromise *)operationSequenceWithType:(AF_OPERATION_KIND)operationKind urls:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)operationSequenceWithType:(AF_OPERATION_KIND)operationKind urls:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
     assert (urlStringsArray.count == parametersArray.count);
     NSMutableArray *operations = [NSMutableArray array];
@@ -160,19 +159,19 @@ typedef enum {
         NSString *urlString = urlStringsArray[i];
         NSDictionary *parameters = parametersArray[i];
 
-        PMKPromise *p = [self promiseForNetworkOperation:operationKind withURL:urlString andParameters:parameters];
+        AFPromise *p = [self promiseForNetworkOperation:operationKind withURL:urlString andParameters:parameters];
 
         [operations addObject:p.then(^(id responseObject, AFHTTPRequestOperation *operation){
             return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseOperationKey : operation}];
         })];
     }
 
-    return [PMKPromise when:operations];
+	return PMKWhen(operations);
 }
 
 
 
-- (PMKPromise *)promiseForNetworkOperation:(AF_OPERATION_KIND)operationKind withURL:(NSString *)urlString andParameters:(id)parameters
+- (AFPromise *)promiseForNetworkOperation:(AF_OPERATION_KIND)operationKind withURL:(NSString *)urlString andParameters:(id)parameters
 {
     switch (operationKind) {
         case AF_OPERATION_GET:
@@ -199,113 +198,113 @@ typedef enum {
 
 @implementation AFHTTPSessionManager (Promises)
 
-- (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters
+- (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self POST:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(responseObject, task));
+			resolve(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
-- (PMKPromise *)POSTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)POSTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	return [self operationSequenceWithType:AF_OPERATION_POST urls:urlStringsArray parameters:parametersArray];
 }
 
-- (PMKPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
+- (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self POST:urlString parameters:parameters constructingBodyWithBlock:block success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(responseObject, task));
+			resolve(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
 
-- (PMKPromise *)GET:(NSString *)urlString parameters:(id)parameters
+- (AFPromise *)GET:(NSString *)urlString parameters:(id)parameters
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self GET:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(responseObject, task));
+			resolve(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
-- (PMKPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	return [self operationSequenceWithType:AF_OPERATION_GET urls:urlStringsArray parameters:parametersArray];
 }
 
 
-- (PMKPromise *)PUT:(NSString *)urlString parameters:(id)parameters
+- (AFPromise *)PUT:(NSString *)urlString parameters:(id)parameters
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self PUT:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(responseObject, task));
+			resolve(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
-- (PMKPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	return [self operationSequenceWithType:AF_OPERATION_PUT urls:urlStringsArray parameters:parametersArray];
 }
 
-- (PMKPromise *)HEAD:(NSString *)urlString parameters:(id)parameters
+- (AFPromise *)HEAD:(NSString *)urlString parameters:(id)parameters
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self HEAD:urlString parameters:parameters success:^(NSURLSessionDataTask *task) {
-			fulfiller(task);
+			resolve(task);
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
-- (PMKPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	return [self operationSequenceWithType:AF_OPERATION_HEAD urls:urlStringsArray parameters:parametersArray];
 }
 
-- (PMKPromise *)PATCH:(NSString *)urlString parameters:(id)parameters
+- (AFPromise *)PATCH:(NSString *)urlString parameters:(id)parameters
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self PATCH:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(responseObject, task));
+			resolve(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
-- (PMKPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	return [self operationSequenceWithType:AF_OPERATION_PATCH urls:urlStringsArray parameters:parametersArray];
 }
 
 
 
-- (PMKPromise *)DELETE:(NSString *)urlString parameters:(id)parameters
+- (AFPromise *)DELETE:(NSString *)urlString parameters:(id)parameters
 {
-	return [PMKPromise new:^(PMKPromiseFulfiller fulfiller, PMKPromiseRejecter rejecter) {
+	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
 		[[self DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-			fulfiller(PMKManifold(responseObject, task));
+			resolve(PMKManifold(responseObject, task));
 		} failure:^(NSURLSessionDataTask *task, NSError *error) {
-			rejecter(error);
+			resolve(error);
 		}] resume];
 	}];
 }
 
-- (PMKPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	return [self operationSequenceWithType:AF_OPERATION_DELETE urls:urlStringsArray parameters:parametersArray];
 }
@@ -313,7 +312,7 @@ typedef enum {
 
 
 
-- (PMKPromise *)operationSequenceWithType:(AF_OPERATION_KIND)operationKind urls:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
+- (AFPromise *)operationSequenceWithType:(AF_OPERATION_KIND)operationKind urls:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
 {
 	assert (urlStringsArray.count == parametersArray.count);
 	NSMutableArray *operations = [NSMutableArray array];
@@ -322,19 +321,19 @@ typedef enum {
 		NSString *urlString = urlStringsArray[i];
 		NSDictionary *parameters = parametersArray[i];
 		
-		PMKPromise *p = [self promiseForNetworkOperation:operationKind withURL:urlString andParameters:parameters];
+		AFPromise *p = [self promiseForNetworkOperation:operationKind withURL:urlString andParameters:parameters];
 		
 		[operations addObject:p.then(^(id responseObject, NSURLSessionDataTask *task){
-			return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
+			return [AFPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseTaskKey : task}];
 		})];
 	}
 	
-	return [PMKPromise when:operations];
+	return PMKWhen(operations);
 }
 
 
 
-- (PMKPromise *)promiseForNetworkOperation:(AF_OPERATION_KIND)operationKind withURL:(NSString *)urlString andParameters:(id)parameters
+- (AFPromise *)promiseForNetworkOperation:(AF_OPERATION_KIND)operationKind withURL:(NSString *)urlString andParameters:(id)parameters
 {
 	switch (operationKind) {
 		case AF_OPERATION_GET:

@@ -10,10 +10,9 @@
 #import <XCTest/XCTest.h>
 
 #import "AFNetworking+PromiseKit.h"
-#import <PromiseKit/Promise.h>
-#import <PromiseKit/Promise+When.h>
+#import <PromiseKit/AnyPromise.h>
 #define EXP_SHORTHAND
-#import <Expecta.h>
+#import "Expecta.h"
 #import "TestCommon.h"
 
 
@@ -73,11 +72,11 @@
 - (void)testConcurrentOperations{
     XCTestExpectation *expectation = [self expectationWithDescription:@"Operations completed"];
     __block int numberOfOperationsCompleted = 0;
-    
-    [PMKPromise when:@[
-                       [self.operationManager GET:@"ip" parameters:nil].then(^(){numberOfOperationsCompleted ++;}),
-                       [self.operationManager GET:@"get" parameters:nil].then(^(){numberOfOperationsCompleted ++;})
-                       ]].then(^(){
+	
+	PMKWhen(@[
+			  [self.operationManager GET:@"ip" parameters:nil].then(^(){numberOfOperationsCompleted ++;}),
+			  [self.operationManager GET:@"get" parameters:nil].then(^(){numberOfOperationsCompleted ++;})
+			  ]).then(^(){
         [expectation fulfill];
     });
     
@@ -85,5 +84,7 @@
         expect(error).to.beNil();
     }];
 }
+
+
 
 @end
