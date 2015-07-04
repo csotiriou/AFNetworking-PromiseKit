@@ -1,7 +1,7 @@
 platform :ios, '8.0'
 
 pod 'AFNetworking', '~> 2.5'
-pod 'PromiseKit/Promise'
+pod 'PromiseKit/Promise', '~>2.0'
 
 use_frameworks!
 

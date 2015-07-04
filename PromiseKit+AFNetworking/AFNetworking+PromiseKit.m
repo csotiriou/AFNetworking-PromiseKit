@@ -24,6 +24,9 @@
 
 #import "AFNetworking+PromiseKit.h"
 
+
+const NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError";
+
 typedef enum {
 	AF_OPERATION_POST,
 	AF_OPERATION_GET,

@@ -27,8 +27,8 @@
 
 
 #define AFPromise AnyPromise
+FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 
-static NSString *AFHTTPRequestOperationErrorKey =  @"afHTTPRequestOperationError";
 
 #define kPMKAFResponseObjectKey @"responseObject"
 #define kPMKAFResponseTaskKey @"task"
