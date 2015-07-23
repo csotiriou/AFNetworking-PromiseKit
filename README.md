@@ -115,6 +115,13 @@ pod 'PromiseKit-AFNetworking'
 #Special Thanks
 Special thanks to Jeff Miller ( https://github.com/jeffmax ) for his fixes and ```pod```ification of this repo
 
+* Michael Lo ( https://github.com/mmmilo )
+* Roberto ( https://github.com/robertomg )
+* Jeff Miller ( https://github.com/jeffmax )
+  
+And, of course Max Howel, for PromiseKit (https://github.com/mxcl)
+
+
 #Disclaimer
 I have created this small addition in order to use it in a project I am making. I have had the opportunity to test it in real-life situations, but AFHTTPRequestOperationManager is not tested for DELETE, and PUT operations. If you find a bug, please submit a bug report.
 
