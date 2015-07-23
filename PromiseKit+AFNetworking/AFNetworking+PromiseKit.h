@@ -168,6 +168,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 
 @interface AFHTTPSessionManager (Promises)
 
+
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters;
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
 - (AFPromise *)GET:(NSString *)urlString parameters:(id)parameters;
@@ -175,6 +176,32 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 - (AFPromise *)HEAD:(NSString *)urlString parameters:(id)parameters;
 - (AFPromise *)PATCH:(NSString *)urlString parameters:(id)parameters;
 - (AFPromise *)DELETE:(NSString *)urlString parameters:(id)parameters;
+
+
+- (AFPromise *)dataTaskWithRequest:(NSURLRequest *)request
+                               task:(NSURLSessionTask * __autoreleasing *)task;
+
+- (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromFile:(NSURL *)fileURL
+                             progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
+- (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromData:(NSData *)bodyData
+                             progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
+- (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
+                                     progress:(NSProgress * __autoreleasing *)progress
+                                   uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
+
+- (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
+                               progress:(NSProgress * __autoreleasing *)progress
+                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
+- (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
+                                  progress:(NSProgress * __autoreleasing *)progress
+                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                              downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
+
 
 
 /**

@@ -201,6 +201,122 @@ typedef enum {
 
 @implementation AFHTTPSessionManager (Promises)
 
+- (NSURLSessionTask *__autoreleasing *)pointerToTaskFromTask:(NSURLSessionTask * __autoreleasing *)task {
+  // create a pointer to a task, since we can't have a nil value
+  if (!task) {
+    NSURLSessionTask *__autoreleasing pointer;
+    NSURLSessionTask *__autoreleasing *replacement = &pointer;
+    task = replacement;
+  }
+  return task;
+}
+
+- (AFPromise *)dataTaskWithRequest:(NSURLRequest *)request
+                               task:(NSURLSessionTask * __autoreleasing *)task
+{
+  task = [self pointerToTaskFromTask:task];
+  return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+    *task = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        resolve(error);
+      }
+      else {
+        resolve(PMKManifold(response, responseObject));
+      }
+    }];
+  }];
+}
+
+- (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromFile:(NSURL *)fileURL
+                             progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
+{
+  uploadTask = [self pointerToTaskFromTask:uploadTask];
+  return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+    *uploadTask = [self uploadTaskWithRequest:request fromFile:fileURL progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        resolve(error);
+      }
+      else {
+        resolve(PMKManifold(response, responseObject));
+      }
+    }];
+  }];
+}
+
+- (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
+                             fromData:(NSData *)bodyData
+                             progress:(NSProgress * __autoreleasing *)progress
+                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
+{
+  uploadTask = [self pointerToTaskFromTask:uploadTask];
+  return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+    *uploadTask = [self uploadTaskWithRequest:request fromData:bodyData progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        resolve(error);
+      }
+      else {
+        resolve(PMKManifold(response, responseObject));
+      }
+    }];
+  }];
+}
+
+- (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
+                                     progress:(NSProgress * __autoreleasing *)progress
+                                   uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
+{
+  uploadTask = [self pointerToTaskFromTask:uploadTask];
+  return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+    *uploadTask = [self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+      if (error) {
+        resolve(error);
+      }
+      else {
+        resolve(PMKManifold(response, responseObject));
+      }
+    }];
+  }];
+}
+
+- (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
+                               progress:(NSProgress * __autoreleasing *)progress
+                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
+{
+  downloadTask = [self pointerToTaskFromTask:downloadTask];
+  return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+    *downloadTask = [self downloadTaskWithRequest:request progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+      if (error) {
+        resolve(error);
+      }
+      else {
+        resolve(PMKManifold(response, filePath));
+      }
+    }];
+  }];
+}
+
+- (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
+                                  progress:(NSProgress * __autoreleasing *)progress
+                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                              downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
+{
+  downloadTask = [self pointerToTaskFromTask:downloadTask];
+    return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        *downloadTask = [self downloadTaskWithResumeData:resumeData progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            if (error) {
+                resolve(error);
+            }
+            else {
+                resolve(PMKManifold(response, filePath));
+            }
+        }];
+    }];
+}
+
+
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters
 {
 	return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
