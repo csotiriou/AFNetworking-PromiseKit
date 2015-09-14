@@ -8,6 +8,9 @@ For the time being, it's a small category addition to the core AFNetworking, fac
 #Note regarding PromiseKit 2.0:
 `PromiseKit+AFNetworking` now supports `PromiseKit 2.0`. Therefore, support for iOS 7 is dropped. If you wish to have PromiseKit + AFNetworking + iOS 7 support, please use a version of ‘AFNetworking-PromiseKit’ earlier than 0.5.0
 
+#Note regarding PromiseKit 3.0:
+`PromiseKit+AFNetworking` now supports `PromiseKit 3.0`. For PromiseKit 3.0, the ambiguity between PMKPromise and AnyPromise has been resolved, and only AnyPromise is used from now on. If you wish to have PromiseKit + AFNetworking + PromiseKit 2.0 support, please use a version of ‘AFNetworking-PromiseKit’ earlier than 0.6.0
+
 #Installation
 You have two options: Either use cocoapods (look into the appropriate section below), or 
 ust copy `AFNetworking+PromiseKit.h` and `AFNetworking+PromiseKit.m` in your project and use them.
@@ -105,7 +108,7 @@ Now unit tests are available, which demonstrate the basic functionality and give
 You can use the project with CocoaPods. Simply put this line into your podfile:
 
 ```
-pod 'PromiseKit-AFNetworking'
+pod 'PromiseKit-AFNetworking', '~>0.6'
 ```
 
 #To Do

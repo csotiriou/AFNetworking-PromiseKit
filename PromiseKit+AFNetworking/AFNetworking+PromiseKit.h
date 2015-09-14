@@ -23,7 +23,6 @@
  */
 #import <AFNetworking/AFNetworking.h>
 #import <PromiseKit/PromiseKit.h>
-#import <PromiseKit/AnyPromise.h>
 
 
 #define AFPromise AnyPromise

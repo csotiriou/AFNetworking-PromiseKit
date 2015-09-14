@@ -165,7 +165,7 @@ typedef enum {
         AFPromise *p = [self promiseForNetworkOperation:operationKind withURL:urlString andParameters:parameters];
 
         [operations addObject:p.then(^(id responseObject, AFHTTPRequestOperation *operation){
-            return [PMKPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseOperationKey : operation}];
+            return [AnyPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseOperationKey : operation}];
         })];
     }
 
