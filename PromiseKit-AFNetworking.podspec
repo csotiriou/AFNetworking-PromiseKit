@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
   
-  s.dependency 'AFNetworking', '~> 2.5'
+  s.dependency 'AFNetworking', '~> 3.0'
   s.dependency 'PromiseKit/Promise', '~> 2.0'
   s.dependency 'PromiseKit/When'
     
