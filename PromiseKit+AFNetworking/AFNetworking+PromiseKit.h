@@ -167,6 +167,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 
 @interface AFHTTPSessionManager (Promises)
 
+@property (nonatomic, assign) BOOL startTasksImmediately;
 
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters;
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
@@ -177,25 +178,103 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 - (AFPromise *)DELETE:(NSString *)urlString parameters:(id)parameters;
 
 
+/**
+ *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager. 
+ *  WARNING: The default behaviour of the task is NOT to run immediately.
+ *  You must call '-resume' to the pointer in order to actually make the request. If you want to change this behaviour, set
+ *  'startTasksImmediately' to YES
+ *
+ *  @param request the request to perform
+ *  @param task Pass a pointer to the task, in order to have the task returned to this pointer.
+ *
+ *  @return a Promise.
+ */
 - (AFPromise *)dataTaskWithRequest:(NSURLRequest *)request
                                task:(NSURLSessionTask * __autoreleasing *)task;
 
+/**
+ *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager.
+ *  WARNING: The default behaviour of the task is NOT to run immediately.
+ *  You must call '-resume' to the pointer in order to actually make the request. If you want to change this behaviour, set
+ *  'startTasksImmediately' to YES
+ *
+ *  @param request
+ *  @param fileURL
+ *  @param progress
+ *  @param uploadTask
+ *
+ *  @return a Promise
+ */
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromFile:(NSURL *)fileURL
                              progress:(NSProgress * __autoreleasing *)progress
                            uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
+
+/**
+ *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager.
+ *  WARNING: The default behaviour of the task is NOT to run immediately.
+ *  You must call '-resume' to the pointer in order to actually make the request. If you want to change this behaviour, set
+ *  'startTasksImmediately' to YES
+ *
+ *  @param request
+ *  @param bodyData
+ *  @param progress
+ *  @param uploadTask
+ *
+ *  @return
+ */
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromData:(NSData *)bodyData
                              progress:(NSProgress * __autoreleasing *)progress
                            uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
+
+/**
+ *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager.
+ *  WARNING: The default behaviour of the task is NOT to run immediately.
+ *  You must call '-resume' to the pointer in order to actually make the request. If you want to change this behaviour, set
+ *  'startTasksImmediately' to YES
+ *
+ *  @param request
+ *  @param progress
+ *  @param uploadTask
+ *
+ *  @return
+ */
 - (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
                                      progress:(NSProgress * __autoreleasing *)progress
                                    uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
+/**
+ *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager.
+ *  WARNING: The default behaviour of the task is NOT to run immediately.
+ *  You must call '-resume' to the pointer in order to actually make the request. If you want to change this behaviour, set
+ *  'startTasksImmediately' to YES
+ *
+ *  @param request
+ *  @param progress
+ *  @param destination
+ *  @param downloadTask
+ *
+ *  @return
+ */
 - (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
                                progress:(NSProgress * __autoreleasing *)progress
                             destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                            downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
+
+/**
+ *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager.
+ *  WARNING: The default behaviour of the task is NOT to run immediately.
+ *  You must call '-resume' to the pointer in order to actually make the request. If you want to change this behaviour, set
+ *  'startTasksImmediately' to YES
+ *
+ *  @param resumeData
+ *  @param progress
+ *  @param destination
+ *  @param downloadTask
+ *
+ *  @return
+ */
 - (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
                                   progress:(NSProgress * __autoreleasing *)progress
                                destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
@@ -284,4 +363,5 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 *   URL strings (will be associated by their position in the array, so make sure they match)
 */
 - (AFPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
+
 @end

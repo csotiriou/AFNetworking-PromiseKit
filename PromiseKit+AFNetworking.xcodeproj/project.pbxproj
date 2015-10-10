@@ -24,8 +24,8 @@
 		0666CC97192961BC00110C1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0666CC95192961BC00110C1B /* InfoPlist.strings */; };
 		0666CC99192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666CC98192961BC00110C1B /* AFHTTPRequestOperation+PromiseTests.m */; };
 		06B81A8E19F3F18C00A8CF14 /* AFNetworking+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B81A8D19F3F18C00A8CF14 /* AFNetworking+PromiseKit.m */; };
-		22B9056872DCCD914800BCCD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48D58E13F4BD8C3756975FE /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		5A0FC94829A17322C5D1F8D7 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240DBD0C20C6C4AC011A16AB /* Pods_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		22B9056872DCCD914800BCCD /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E48D58E13F4BD8C3756975FE /* Pods.framework */; };
+		5A0FC94829A17322C5D1F8D7 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 240DBD0C20C6C4AC011A16AB /* Pods_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -239,7 +239,7 @@
 		0666CC62192961BC00110C1B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Oramind;
 				TargetAttributes = {
 					0666CC8A192961BC00110C1B = {
@@ -458,6 +458,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -516,11 +517,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PromiseKit+AFNetworking/PromiseKit+AFNetworking-Prefix.pch";
 				INFOPLIST_FILE = "PromiseKit+AFNetworking/PromiseKit+AFNetworking-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oramind.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -532,11 +533,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PromiseKit+AFNetworking/PromiseKit+AFNetworking-Prefix.pch";
 				INFOPLIST_FILE = "PromiseKit+AFNetworking/PromiseKit+AFNetworking-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oramind.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -563,6 +564,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oramind.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -586,6 +588,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oramind.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

@@ -42,10 +42,21 @@
             NSLog(@"response object description: %@", responseDictionary[kPMKAFResponseObjectKey]);
         }
     });
-
-	
-	
+    
+    
+    //get the task
+    NSURLSessionTask *task;
+    
+    //set the task to run immediately
+    self.sessionManager.startTasksImmediately = YES;
+    [self.sessionManager dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://oramind.com/"]] task:&task];
+    NSLog(@"%@", task);
+    
+    
+    
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
