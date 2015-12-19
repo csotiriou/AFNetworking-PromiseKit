@@ -39,7 +39,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside.
  
  Returned objects in the Promise Completion:
- AFHTTPRequestOperation *operation, id responseObject
+ id responseObject, AFHTTPRequestOperation *operation
  */
 - (AFPromise *)promise;
 
