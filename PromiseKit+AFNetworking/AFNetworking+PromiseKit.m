@@ -38,169 +38,6 @@ typedef enum {
     AF_OPERATION_PUT
 } AF_OPERATION_KIND;
 
-@implementation AFHTTPRequestOperation (Promises)
-
-- (AFPromise *)promise
-{
-    return [self promiseByStartingImmediately:NO];
-}
-
-- (AFPromise *)promiseAndStartImmediately
-{
-    return [self promiseByStartingImmediately:YES];
-}
-
-- (AFPromise *)promiseByStartingImmediately:(BOOL)startImmediately
-{
-    return [AFPromise promiseWithResolverBlock:^(PMKResolver resolver){
-        [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            resolver(PMKManifold(responseObject, operation));
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            id info = error.userInfo.mutableCopy;
-            info[AFHTTPRequestOperationErrorKey] = operation;
-            id newerror = [NSError errorWithDomain:error.domain code:error.code userInfo:info];
-            resolver(newerror);
-        }];
-        if (startImmediately) {
-            [self start];
-        }
-    }];
-}
-
-+ (AFPromise *)request:(NSURLRequest *)request
-{
-    NSOperationQueue *q = [NSOperationQueue currentQueue] ? : [NSOperationQueue mainQueue];
-    return [self request:request queue:q];
-}
-
-+ (AFPromise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue
-{
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [queue addOperation:operation];
-    return [operation promise];
-}
-
-@end
-
-
-
-@implementation AFHTTPRequestOperationManager (Promises)
-
-- (AFPromise *)POST:(NSString *)URLString parameters:(id)parameters
-{
-    return [[self POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {} failure:^(AFHTTPRequestOperation *operation, NSError *error) {}] promise];
-}
-
-- (AFPromise *)POSTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    return [self operationSequenceWithType:AF_OPERATION_POST urls:urlStringsArray parameters:parametersArray];
-}
-
-
-- (AFPromise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
-{
-    return [[self POST:URLString parameters:parameters constructingBodyWithBlock:block success:nil failure:nil] promise];
-}
-
-- (AFPromise *)GET:(NSString *)URLString parameters:(id)parameters
-{
-    return [[self GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {} failure:^(AFHTTPRequestOperation *operation, NSError *error) {}] promise];
-}
-
-- (AFPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    return [self operationSequenceWithType:AF_OPERATION_GET urls:urlStringsArray parameters:parametersArray];
-}
-
-- (AFPromise *)PUT:(NSString *)URLString parameters:(id)parameters;
-{
-    return [[self PUT:URLString parameters:parameters success:nil failure:nil] promise];
-}
-
-- (AFPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    return [self operationSequenceWithType:AF_OPERATION_PUT urls:urlStringsArray parameters:parametersArray];
-}
-
-- (AFPromise *)DELETE:(NSString *)URLString parameters:(id)parameters
-{
-    return [[self DELETE:URLString parameters:parameters success:nil failure:nil] promise];
-}
-
-- (AFPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    return [self operationSequenceWithType:AF_OPERATION_DELETE urls:urlStringsArray parameters:parametersArray];
-}
-
-
-- (AFPromise *)PATCH:(NSString *)URLString parameters:(id)parameters
-{
-    return [[self PATCH:URLString parameters:parameters success:nil failure:nil] promise];
-}
-
-- (AFPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    return [self operationSequenceWithType:AF_OPERATION_PATCH urls:urlStringsArray parameters:parametersArray];
-}
-
-
-- (AFPromise *)HEAD:(NSString *)URLString parameters:(id)parameters
-{
-    return [[self HEAD:URLString parameters:parameters success:nil failure:nil] promise];
-}
-
-- (AFPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    return [self operationSequenceWithType:AF_OPERATION_HEAD urls:urlStringsArray parameters:parametersArray];
-}
-
-
-- (AFPromise *)operationSequenceWithType:(AF_OPERATION_KIND)operationKind urls:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray
-{
-    assert (urlStringsArray.count == parametersArray.count);
-    NSMutableArray *operations = [NSMutableArray array];
-    
-    for (int i=0; i<urlStringsArray.count; i++){
-        NSString *urlString = urlStringsArray[i];
-        NSDictionary *parameters = parametersArray[i];
-        
-        AFPromise *p = [self promiseForNetworkOperation:operationKind withURL:urlString andParameters:parameters];
-        
-        [operations addObject:p.then(^(id responseObject, AFHTTPRequestOperation *operation){
-            return [AnyPromise promiseWithValue:@{kPMKAFResponseObjectKey : responseObject, kPMKAFResponseOperationKey : operation}];
-        })];
-    }
-    
-    return PMKWhen(operations);
-}
-
-
-
-- (AFPromise *)promiseForNetworkOperation:(AF_OPERATION_KIND)operationKind withURL:(NSString *)urlString andParameters:(id)parameters
-{
-    switch (operationKind) {
-        case AF_OPERATION_GET:
-            return [self GET:urlString parameters:parameters];
-        case AF_OPERATION_DELETE:
-            return [self DELETE:urlString parameters:parameters];
-        case AF_OPERATION_PATCH:
-            return [self PATCH:urlString parameters:parameters];
-        case AF_OPERATION_POST:
-            return [self POST:urlString parameters:parameters];
-        case AF_OPERATION_PUT:
-            return [self PUT:urlString parameters:parameters];
-        case AF_OPERATION_HEAD:
-            return [self HEAD:urlString parameters:parameters];
-        default:
-            break;
-    }
-    return nil;
-}
-
-@end
-
-
-
 @implementation AFHTTPSessionManager (Promises)
 @dynamic startTasksImmediately;
 
@@ -244,12 +81,12 @@ typedef enum {
 
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                             fromFile:(NSURL *)fileURL
-                            progress:(NSProgress * __autoreleasing *)progress
+                            progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
     uploadTask = [self pointerToTaskFromTask:uploadTask];
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        *uploadTask = [self uploadTaskWithRequest:request fromFile:fileURL progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        *uploadTask = [self uploadTaskWithRequest:request fromFile:fileURL progress:uploadProgressBlock completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error) {
                 resolve(error);
             }
@@ -263,12 +100,12 @@ typedef enum {
 
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                             fromData:(NSData *)bodyData
-                            progress:(NSProgress * __autoreleasing *)progress
+                            progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
     uploadTask = [self pointerToTaskFromTask:uploadTask];
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        *uploadTask = [self uploadTaskWithRequest:request fromData:bodyData progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        *uploadTask = [self uploadTaskWithRequest:request fromData:bodyData progress:uploadProgressBlock completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error) {
                 resolve(error);
             }
@@ -281,12 +118,12 @@ typedef enum {
 }
 
 - (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
-                                    progress:(NSProgress * __autoreleasing *)progress
+                                    progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                                   uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
     uploadTask = [self pointerToTaskFromTask:uploadTask];
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        *uploadTask = [self uploadTaskWithStreamedRequest:request progress:progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        *uploadTask = [self uploadTaskWithStreamedRequest:request progress:uploadProgressBlock completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
             if (error) {
                 resolve(error);
             }
@@ -299,13 +136,13 @@ typedef enum {
 }
 
 - (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
-                              progress:(NSProgress * __autoreleasing *)progress
+                              progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
 {
     downloadTask = [self pointerToTaskFromTask:downloadTask];
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        *downloadTask = [self downloadTaskWithRequest:request progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        *downloadTask = [self downloadTaskWithRequest:request progress:uploadProgressBlock destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             if (error) {
                 resolve(error);
             }
@@ -318,13 +155,13 @@ typedef enum {
 }
 
 - (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
-                                 progress:(NSProgress * __autoreleasing *)progress
+                                 progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                              downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
 {
     downloadTask = [self pointerToTaskFromTask:downloadTask];
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        *downloadTask = [self downloadTaskWithResumeData:resumeData progress:progress destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        *downloadTask = [self downloadTaskWithResumeData:resumeData progress:uploadProgressBlock destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             if (error) {
                 resolve(error);
             }
@@ -340,7 +177,7 @@ typedef enum {
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters
 {
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [[self POST:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             resolve(PMKManifold(responseObject, task));
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             resolve(error);
@@ -356,7 +193,7 @@ typedef enum {
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 {
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [[self POST:urlString parameters:parameters constructingBodyWithBlock:block success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self POST:urlString parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             resolve(PMKManifold(responseObject, task));
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             resolve(error);
@@ -368,7 +205,8 @@ typedef enum {
 - (AFPromise *)GET:(NSString *)urlString parameters:(id)parameters
 {
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [[self GET:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        [[self GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             resolve(PMKManifold(responseObject, task));
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             resolve(error);
