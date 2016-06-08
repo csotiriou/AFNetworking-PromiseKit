@@ -33,138 +33,6 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
 #define kPMKAFResponseTaskKey @"task"
 #define kPMKAFResponseOperationKey @"operation"
 
-
-@interface AFHTTPRequestOperation (Promises)
-/**
- @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside.
- 
- Returned objects in the Promise Completion:
- id responseObject, AFHTTPRequestOperation *operation
- */
-- (AFPromise *)promise;
-
-/**
- @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside. The operation will immediately start
- */
-- (AFPromise *)promiseAndStartImmediately;
-
-
-/**
- @brief Returns a new Promise with a ready to use AFHTTPRequestOperation inside
- 
- If 'startImmediately is 'YES' then the operation will start immediately
- */
-- (AFPromise *)promiseByStartingImmediately:(BOOL)startImmediately;
-
-/**
- @brief Executes immediately an AFHTTPRequestOperation by adding an operation set up with a NSURLRequest
- to the current queue (or to the main queue if there is no current queue
- */
-+ (AFPromise *)request:(NSURLRequest *)request;
-
-/**
- @brief Executes immediately an AFHTTPRequestOperation by adding an operation set up with a NSURLRequest
- to the queue passed as the argument
- */
-+ (AFPromise *)request:(NSURLRequest *)request queue:(NSOperationQueue *)queue;
-@end
-
-
-@interface AFHTTPRequestOperationManager (Promises)
-
-- (AFPromise *)GET:(NSString *)URLString parameters:(id)parameters;
-- (AFPromise *)POST:(NSString *)URLString parameters:(id)parameters;
-- (AFPromise *)POST:(NSString *)URLString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block;
-- (AFPromise *)PUT:(NSString *)URLString parameters:(id)parameters;
-- (AFPromise *)DELETE:(NSString *)URLString parameters:(id)parameters;
-- (AFPromise *)HEAD:(NSString *)URLString parameters:(id)parameters;
-
-
-
-/**
-* @brief Performs a GET request on multiple URLs. It uses 'when' under the hood
-*
-* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
-*   an empty NSDictionary instead.
-*
-* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
-* -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseTaskKey --> The task that initiated the request
-*
-* @param urlStringsArray an array of relative URL Strings
-* @param parametersArray an associative array of parameters to be passed to their corresponding
-*   URL strings (will be associated by their position in the array, so make sure they match)
-*/
-- (AFPromise *)GETMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
-
-
-/**
-* @brief Performs a PUT request on multiple URLs. It uses 'when' under the hood
-*
-* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
-*   an empty NSDictionary instead.
-*
-* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
-* -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseTaskKey --> The task that initiated the request
-*
-* @param urlStringsArray an array of relative URL Strings
-* @param parametersArray an associative array of parameters to be passed to their corresponding
-*   URL strings (will be associated by their position in the array, so make sure they match)
-*/
-- (AFPromise *)PUTMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
-
-/**
-* @brief Performs a HEAD request on multiple URLs. It uses 'when' under the hood
-*
-* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
-*   an empty NSDictionary instead.
-*
-* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
-* -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseTaskKey --> The task that initiated the request
-*
-* @param urlStringsArray an array of relative URL Strings
-* @param parametersArray an associative array of parameters to be passed to their corresponding
-*   URL strings (will be associated by their position in the array, so make sure they match)
-*/
-- (AFPromise *)HEADMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
-
-/**
-* @brief Performs a PATCH request on multiple URLs. It uses 'when' under the hood
-*
-* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
-*   an empty NSDictionary instead.
-*
-* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
-* -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseTaskKey --> The task that initiated the request
-*
-* @param urlStringsArray an array of relative URL Strings
-* @param parametersArray an associative array of parameters to be passed to their corresponding
-*   URL strings (will be associated by their position in the array, so make sure they match)
-*/
-- (AFPromise *)PATCHMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
-
-
-/**
-* @brief Performs a DELETE request on multiple URLs. It uses 'when' under the hood
-*
-* The parameters to be passed on URLs are given using an the associative array in 'parametersArray'. If you want to pass 'nil' as parameters, pass
-*   an empty NSDictionary instead.
-*
-* When all requests are finished a 'then(^(NSArray *responsesArray){})' will return an array with NSDictionaries. Each one will have two values:
-* -- kPMKAFResponseObjectKey --> The response Object of the request
-* -- kPMKAFResponseTaskKey --> The task that initiated the request
-*
-* @param urlStringsArray an array of relative URL Strings
-* @param parametersArray an associative array of parameters to be passed to their corresponding
-*   URL strings (will be associated by their position in the array, so make sure they match)
-*/
-- (AFPromise *)DELETEMultiple:(NSArray *)urlStringsArray parameters:(NSArray *)parametersArray;
-@end
-
-
 @interface AFHTTPSessionManager (Promises)
 
 @property (nonatomic, assign) BOOL startTasksImmediately;
@@ -207,7 +75,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  */
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromFile:(NSURL *)fileURL
-                             progress:(NSProgress * __autoreleasing *)progress
+                             progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                            uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 /**
@@ -225,7 +93,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  */
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromData:(NSData *)bodyData
-                             progress:(NSProgress * __autoreleasing *)progress
+                             progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                            uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 /**
@@ -241,7 +109,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  *  @return
  */
 - (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
-                                     progress:(NSProgress * __autoreleasing *)progress
+                                     progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                                    uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 /**
@@ -258,7 +126,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  *  @return
  */
 - (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
-                               progress:(NSProgress * __autoreleasing *)progress
+                               progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                             destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                            downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
 
@@ -276,7 +144,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  *  @return
  */
 - (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
-                                  progress:(NSProgress * __autoreleasing *)progress
+                                  progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
                                destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                               downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
 
