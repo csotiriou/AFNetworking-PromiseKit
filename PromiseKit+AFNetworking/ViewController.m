@@ -12,7 +12,6 @@
 
 
 @interface ViewController ()
-@property (nonatomic, strong) AFHTTPRequestOperationManager *operationManager;
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @end
 
@@ -32,18 +31,6 @@
         }
     });
 	
-
-    self.operationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[[NSURL alloc] initWithString:@"http://oramind.com"]];
-    self.operationManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
-    [self.operationManager GETMultiple:@[@"/", @"/", @"/", @"/"] parameters:@[@{},@{},@{},@{}]].then(^(NSArray * responsesArray){
-        for (NSDictionary *responseDictionary in responsesArray){
-            NSLog(@"operation description: %@", responseDictionary[kPMKAFResponseOperationKey]);
-            NSLog(@"response object description: %@", responseDictionary[kPMKAFResponseObjectKey]);
-        }
-    });
-    
-    
     //get the task
     NSURLSessionTask *task;
     
