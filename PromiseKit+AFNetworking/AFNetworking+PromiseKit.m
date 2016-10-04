@@ -81,7 +81,7 @@ typedef enum {
 
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                             fromFile:(NSURL *)fileURL
-                            progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                            progress:(NSProgress * __autoreleasing *) uploadProgressBlock
                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
     uploadTask = [self pointerToTaskFromTask:uploadTask];
@@ -100,7 +100,7 @@ typedef enum {
 
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                             fromData:(NSData *)bodyData
-                            progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                            progress:(NSProgress * __autoreleasing *)uploadProgressBlock
                           uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
     uploadTask = [self pointerToTaskFromTask:uploadTask];
@@ -118,7 +118,7 @@ typedef enum {
 }
 
 - (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
-                                    progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                                    progress:(NSProgress * __autoreleasing *) uploadProgressBlock
                                   uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask
 {
     uploadTask = [self pointerToTaskFromTask:uploadTask];
@@ -136,12 +136,13 @@ typedef enum {
 }
 
 - (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
-                              progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                              progress:(NSProgress * __autoreleasing *)uploadProgressBlock
                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
 {
     downloadTask = [self pointerToTaskFromTask:downloadTask];
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        
         *downloadTask = [self downloadTaskWithRequest:request progress:uploadProgressBlock destination:destination completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             if (error) {
                 resolve(error);
@@ -155,7 +156,7 @@ typedef enum {
 }
 
 - (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
-                                 progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                                 progress:(NSProgress * __autoreleasing *)uploadProgressBlock
                               destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                              downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask
 {
@@ -177,9 +178,9 @@ typedef enum {
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters
 {
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [[self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self POST:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
             resolve(PMKManifold(responseObject, task));
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             resolve(error);
         }] resume];
     }];
@@ -193,7 +194,7 @@ typedef enum {
 - (AFPromise *)POST:(NSString *)urlString parameters:(id)parameters constructingBodyWithBlock:(void (^)(id<AFMultipartFormData>))block
 {
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [[self POST:urlString parameters:parameters constructingBodyWithBlock:block progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self POST:urlString parameters:parameters constructingBodyWithBlock:block success:^(NSURLSessionDataTask *task, id responseObject) {
             resolve(PMKManifold(responseObject, task));
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             resolve(error);
@@ -206,7 +207,7 @@ typedef enum {
 {
     return [AFPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         
-        [[self GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[self GET:urlString parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
             resolve(PMKManifold(responseObject, task));
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             resolve(error);

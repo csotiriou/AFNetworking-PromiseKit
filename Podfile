@@ -2,7 +2,7 @@ platform :ios, '8.0'
 
 target 'PromiseKit+AFNetworking' do
     
-pod 'AFNetworking', '~> 3.1.0'
+pod 'AFNetworking', '~>2.6'
 pod 'PromiseKit/CorePromise', '~>4.0'
 
 end

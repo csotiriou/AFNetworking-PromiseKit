@@ -75,7 +75,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  */
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromFile:(NSURL *)fileURL
-                             progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                             progress:(NSProgress * __autoreleasing *) uploadProgressBlock
                            uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 /**
@@ -93,7 +93,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  */
 - (AFPromise *)uploadTaskWithRequest:(NSURLRequest *)request
                              fromData:(NSData *)bodyData
-                             progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                             progress:(NSProgress * __autoreleasing *) uploadProgressBlock
                            uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 /**
@@ -109,7 +109,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  *  @return
  */
 - (AFPromise *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
-                                     progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                                     progress:(NSProgress * __autoreleasing *) uploadProgressBlock
                                    uploadTask:(NSURLSessionTask * __autoreleasing *)uploadTask;
 
 /**
@@ -126,9 +126,9 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  *  @return
  */
 - (AFPromise *)downloadTaskWithRequest:(NSURLRequest *)request
-                               progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
-                            destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
-                           downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
+                              progress:(NSProgress * __autoreleasing *)uploadProgressBlock
+                           destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
+                          downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
 
 /**
  *  Returns a Promise, with a ready-to-use data task, by performing the corresponding operation to the default AFHTTPSessionManager.
@@ -144,7 +144,7 @@ FOUNDATION_EXPORT const NSString *AFHTTPRequestOperationErrorKey;
  *  @return
  */
 - (AFPromise *)downloadTaskWithResumeData:(NSData *)resumeData
-                                  progress:(void (^)(NSProgress *uploadProgress)) uploadProgressBlock
+                                  progress:(NSProgress * __autoreleasing *) uploadProgressBlock
                                destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                               downloadTask:(NSURLSessionTask * __autoreleasing *)downloadTask;
 
