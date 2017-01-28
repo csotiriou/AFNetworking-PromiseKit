@@ -13,7 +13,7 @@ For the time being, it's a small category addition to the core AFNetworking, fac
 
 #Installation
 You have two options: Either use cocoapods (look into the appropriate section below), or 
-ust copy `AFNetworking+PromiseKit.h` and `AFNetworking+PromiseKit.m` in your project and use them.
+just copy `AFNetworking+PromiseKit.h` and `AFNetworking+PromiseKit.m` in your project and use them.
 
 #Sample Uses:
 
