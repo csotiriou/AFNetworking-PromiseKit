@@ -4,8 +4,8 @@ Pod::Spec.new do |s|
   s.version  = '0.7.0' 
   s.summary  = 'PromiseKit extensions for AFNetworking'
   s.license  =  'MIT'
-  s.homepage = 'https://github.com/csotiriou/AFNetworking-PromiseKit/'
-  s.source = { :git => 'https://github.com/csotiriou/AFNetworking-PromiseKit.git', :tag => s.version }
+  s.homepage = 'https://github.com/zllarry/AFNetworking-PromiseKit/'
+  s.source = { :git => 'https://github.com/zllarry/AFNetworking-PromiseKit.git', :tag => s.version }
   
   s.author   = { 'Christos Sotiriou' => 'csotiriou86@gmail.com' }  
   
