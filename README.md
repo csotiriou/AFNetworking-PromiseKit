@@ -5,17 +5,17 @@ PromiseKit+AFNetworking is a small category addition to the delightful [PromiseK
 
 For the time being, it's a small category addition to the core AFNetworking, facilitating development with the plain AFHTTPRequestOperation and with the AFHTTPRequestOperationManager.
 
-#Note regarding PromiseKit 2.0:
+# Note regarding PromiseKit 2.0:
 `PromiseKit+AFNetworking` now supports `PromiseKit 2.0`. Therefore, support for iOS 7 is dropped. If you wish to have PromiseKit + AFNetworking + iOS 7 support, please use a version of ‘AFNetworking-PromiseKit’ earlier than 0.5.0
 
-#Note regarding PromiseKit 3.0:
+# Note regarding PromiseKit 3.0:
 `PromiseKit+AFNetworking` now supports `PromiseKit 3.0`. For PromiseKit 3.0, the ambiguity between PMKPromise and AnyPromise has been resolved, and only AnyPromise is used from now on. If you wish to have PromiseKit + AFNetworking + PromiseKit 2.0 support, please use a version of ‘AFNetworking-PromiseKit’ earlier than 0.6.0
 
-#Installation
+# Installation
 You have two options: Either use cocoapods (look into the appropriate section below), or 
 just copy `AFNetworking+PromiseKit.h` and `AFNetworking+PromiseKit.m` in your project and use them.
 
-#Sample Uses:
+# Sample Uses:
 
 ### Plain HTTP Request
 ```objectivec
@@ -29,7 +29,7 @@ just copy `AFNetworking+PromiseKit.h` and `AFNetworking+PromiseKit.m` in your pr
 
 The above code will immediately execute the HTTP Request by adding it to the current queue, or the main queue if the current queue does not exist. You can also add it to a different queue (see the header file)
 
-###AFHTTPRequestOperationManager
+### AFHTTPRequestOperationManager
 ```objectivec
 self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:nil];
 self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -60,7 +60,7 @@ Making concurrent operations is a simple matter of calling "-when" on PMKPromise
     });
 ```
 
-###AFHTTPSessionManager
+### AFHTTPSessionManager
 
 New: Now AFHTTPSessionManager is supported, for use with AFNetworking 2.0 and iOS 7
 
@@ -80,7 +80,7 @@ Objects returned during these operations are optional here. Maximum arguments in
 
 Of course, chaining and making concurrent operations work the same way as in AFHTTPRequestOperationManager.
 
-###`when` and getting the NSURLDataTask that initiated the request.
+### `when` and getting the NSURLDataTask that initiated the request.
 Now you can get the `NSURLDataTask` that initiated the request when performing multiple concurrent requests with `when`
 
 ```objectivec
@@ -100,22 +100,22 @@ Now you can get the `NSURLDataTask` that initiated the request when performing m
 });
 ```
 
-#Samples
+# Samples
 Now unit tests are available, which demonstrate the basic functionality and give some basic examples on how to use this category. More unit tests are going to be added in the near future.
 
 
-#Pods integration
+# Pods integration
 You can use the project with CocoaPods. Simply put this line into your podfile:
 
 ```
 pod 'PromiseKit-AFNetworking', '~>0.6'
 ```
 
-#To Do
+# To Do
 - Add more unit tests
 - Add some goodies, in cases where they make sense.
 
-#Special Thanks
+# Special Thanks
 Special thanks to Jeff Miller ( https://github.com/jeffmax ) for his fixes and ```pod```ification of this repo
 
 * Michael Lo ( https://github.com/mmmilo )
@@ -125,10 +125,10 @@ Special thanks to Jeff Miller ( https://github.com/jeffmax ) for his fixes and `
 And, of course Max Howel, for PromiseKit (https://github.com/mxcl)
 
 
-#Disclaimer
+# Disclaimer
 I have created this small addition in order to use it in a project I am making. I have had the opportunity to test it in real-life situations, but AFHTTPRequestOperationManager is not tested for DELETE, and PUT operations. If you find a bug, please submit a bug report.
 
-#Something missing?
+# Something missing?
 Of course something is missing. I have just began implementing this. If you have suggestions, additions, or you want to add a cool feature, I would be happy to hear about it. Please, please, please, leave your feedback and suggestions to the 'issues' section!
 
 
