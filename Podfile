@@ -1,12 +1,12 @@
-platform :ios, '8.0'
+platform :ios, '9.0'
+use_frameworks!
 
 target 'PromiseKit+AFNetworking' do
     
 pod 'AFNetworking', '~> 3.1.0'
-pod 'PromiseKit/CorePromise', '~>3.0'
+pod 'PromiseKit', '~> 6.5.2'
 
 end
-use_frameworks!
 
 target 'Tests' do
 	pod 'Expecta',     '~> 0.2.4'
